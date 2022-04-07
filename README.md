@@ -1,16 +1,27 @@
 # Cube Back-End
 
 ## Prerequisites
+
 You need to have :
 * Maven 3.x
 * Java 17.x
-* PostgreSQL 12.x
+* PostgreSQL 14.x
 
 ## How to install
+
 Clone the git project
 
 ```shell
 git clone git@github.com:SVT-Cube-Project/cube--backend.git
+```
+
+## PostgreSQL
+
+Initial DB
+
+```SQL
+CREATE DATABASE cube;
+GRANT ALL PRIVILEGES ON DATABASE "cube" TO postgres;
 ```
 
 ## How to run
@@ -39,16 +50,6 @@ If `CubeApplication` isn't setup automatically, you can configure it like this
 
 ![configRunner](https://user-images.githubusercontent.com/56682141/157540860-eb1e5439-7cc2-4247-ab36-74cb3648bd53.png)
 
-### PostgreSQL
-
-Initial DB
-
-```SQL
-CREATE DATABASE cube;
-GRANT ALL PRIVILEGES ON DATABASE "cube" TO postgres;
-GRANT ALL PRIVILEGES ON DATABASE "cube" TO $user;
-```
-
 ## How to test
 
 ## Contributing
@@ -57,6 +58,6 @@ Please see [CONTRIBUTING.md](./CONTRIBUTING.md)
 
 ## Maintainers
 
-theo.gadiffet@gmail.com
-valentin.lacour@gmail.com
-sebastien.postiaux@gmail.com
+* theo.gadiffet@gmail.com
+* valou.lacour59@gmail.com
+* sebastienpostiaux@gmail.com

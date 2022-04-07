@@ -8,13 +8,11 @@ import java.time.Period;
 @Table
 public class Consumer {
     @Id
-    // ToDo: C'est quoi ?
     @SequenceGenerator(
             name = "consumer_sequence",
             sequenceName = "consumer_sequence",
             allocationSize = 1
     )
-    // ToDo: C'est quoi ?
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
             generator = "consumer_sequence"
@@ -29,15 +27,6 @@ public class Consumer {
     private Integer age;
 
     public Consumer() {
-    }
-
-    public Consumer(Integer id, String firstName, String name, LocalDate birthDate, String email, String password) {
-        this.id = id;
-        this.firstName = firstName;
-        this.name = name;
-        this.birthDate = birthDate;
-        this.email = email;
-        this.password = password;
     }
 
     public Consumer(String firstName, String name, LocalDate birthDate, String email, String password) {

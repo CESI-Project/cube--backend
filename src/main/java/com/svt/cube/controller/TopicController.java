@@ -1,7 +1,7 @@
 package com.svt.cube.controller;
 
-import com.svt.cube.entity.Consumer;
-import com.svt.cube.service.ConsumerService;
+import com.svt.cube.entity.Topic;
+import com.svt.cube.service.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,19 +11,19 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(path= "api/v1/consumer")
-public class ConsumerController {
+@RequestMapping(path= "api/v1/topic")
+public class TopicController {
 
-    private final ConsumerService consumerService;
+    private final TopicService topicService;
 
     @Autowired
-    public ConsumerController(ConsumerService consumerService) {
-        this.consumerService = consumerService;
+    public TopicController(TopicService topicService) {
+        this.topicService = topicService;
     }
 
     @CrossOrigin
     @GetMapping
-    public List<Consumer> getConsumers(){
-        return consumerService.getConsumers();
+    public List<Topic> getTopics(){
+        return topicService.getTopics();
     }
 }
