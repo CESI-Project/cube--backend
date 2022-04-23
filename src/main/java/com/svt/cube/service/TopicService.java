@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TopicService {
@@ -19,5 +20,9 @@ public class TopicService {
 
     public List<Topic> getTopics(){
         return topicRepository.findAll();
+    }
+
+    public Optional<Topic> getTopicById(Integer id){
+        return topicRepository.findTopicById(id);
     }
 }
