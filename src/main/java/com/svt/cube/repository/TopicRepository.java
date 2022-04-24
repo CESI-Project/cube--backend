@@ -10,7 +10,5 @@ import java.util.Optional;
 
 @Repository
 public interface TopicRepository extends JpaRepository<Topic, Integer> {
-
-    @Query(value = "SELECT t from Topic t WHERE t.id=:id")
-    Optional<Topic> findTopicById(@Param("id") Integer id);
+    Optional<Topic> findById(Integer id);
 }

@@ -33,14 +33,13 @@ public class FileManagementController {
         // public RedirectView uploadImage(Integer topicId,, @RequestParam("imageFile")
         // MultipartFile imageFile) {
         try {
-            Optional<Topic> topic = topicRepository.findTopicById(1);
+            Optional<Topic> topic = topicRepository.findById(1);
             // replace by this line when front is integrated
-            // Optional<Topic> topic = topicRepository.findTopicById(topicId);
+            // Optional<Topic> topic = topicRepository.findById(topicId);
             if (topic.isPresent()) {
                 String fileName = StringUtils.cleanPath(imageFile.getOriginalFilename());
                 topic.get().setPicture(fileName);
-                // delete this comm when .save() function will be create in topicRepository
-                // Topic savedTopic = topicRepository.save(topic);
+                topicRepository.save(topic.get());
 
                 fileManagementService.saveFile(folderPath, fileName, imageFile);
             }
