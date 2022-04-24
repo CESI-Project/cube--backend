@@ -17,48 +17,42 @@ import static java.time.Month.MARCH;
 @Configuration
 public class ConsumerConfig {
 
-    // ToDo: Split it for each Entity (Check GitHub Ticket)
-    @Bean
-    CommandLineRunner commandLineRunner(ConsumerRepository consumerRepository, TopicRepository topicRepository) {
-        return args -> {
-            Consumer pierre = new Consumer(
-                    "Pierre",
-                    "Rocher",
-                    LocalDate.of(2000, APRIL, 12),
-                    "pierre.rocher@gmail.com",
-                    "1234"
-            );
+        // ToDo: Split it for each Entity (Check GitHub Ticket)
+        @Bean
+        CommandLineRunner commandLineRunner(ConsumerRepository consumerRepository, TopicRepository topicRepository) {
+                return args -> {
+                        Consumer pierre = new Consumer(
+                                        "Pierre",
+                                        "Rocher",
+                                        LocalDate.of(2000, APRIL, 12),
+                                        "pierre.rocher@gmail.com",
+                                        "1234");
 
-            Consumer jean = new Consumer(
-                    "Jean",
-                    "Flutte",
-                    LocalDate.of(1990, MARCH, 15),
-                    "jean.flutte@gmail.com",
-                    "1234"
-            );
+                        Consumer jean = new Consumer(
+                                        "Jean",
+                                        "Flutte",
+                                        LocalDate.of(1990, MARCH, 15),
+                                        "jean.flutte@gmail.com",
+                                        "1234");
 
-            Topic macron = new Topic(
-                    "Macron nous parle",
-                    "../../../../../resources/images/macron.jpg",
-                    3,
-                    400,
-                    "Comment"
-            );
+                        Topic macron = new Topic(
+                                        "Macron nous parle",
+                                        "/Users/val/Desktop/projetcube/cube--backend/src/main/resources/images/resources/images/macron.jpg",
+                                        3,
+                                        400,
+                                        "Comment");
 
-            Topic soap = new Topic(
-                    "Soupe le 14 Mars",
-                    "../../../../../resources/images/soap.jpg",
-                    3,
-                    400,
-                    "Comment"
-            );
-            consumerRepository.saveAll(
-                    List.of(pierre, jean)
-            );
+                        Topic soap = new Topic(
+                                        "Soupe le 14 Mars",
+                                        "/Users/val/Desktop/projetcube/cube--backend/src/main/resources/images/resources/images/soap.jpg",
+                                        3,
+                                        400,
+                                        "Comment");
+                        consumerRepository.saveAll(
+                                        List.of(pierre, jean));
 
-            topicRepository.saveAll(
-                    List.of(macron, soap)
-            );
-        };
-    }
+                        topicRepository.saveAll(
+                                        List.of(macron, soap));
+                };
+        }
 }
