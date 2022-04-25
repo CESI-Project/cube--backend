@@ -18,11 +18,11 @@ public class TopicService {
         this.topicRepository = topicRepository;
     }
 
-    public List<Topic> getTopics(){
+    public List<Topic> getTopics() {
         return topicRepository.findAll();
     }
 
-    public Optional<Topic> getTopicById(Integer id){
-        return topicRepository.findTopicById(id);
+    public Optional<Topic> getTopicById(Integer id) {
+        return topicRepository.findById(id);
     }
 }
