@@ -37,15 +37,14 @@ public class ConsumerConfig {
 
                         Topic macron = new Topic(
                                         "Macron nous parle",
-                                        null,
-                                        // "/Users/val/Desktop/projetcube/cube--backend/src/main/resources/images/resources/images/macron.jpg",
+                                        "macron.jpg",
                                         3,
                                         400,
                                         "Comment");
 
                         Topic soap = new Topic(
                                         "Soupe le 14 Mars",
-                                        "/Users/val/Desktop/projetcube/cube--backend/src/main/resources/images/resources/images/soap.jpg",
+                                        "soap.jpg",
                                         3,
                                         400,
                                         "Comment");
