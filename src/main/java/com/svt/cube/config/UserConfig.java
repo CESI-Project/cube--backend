@@ -1,8 +1,8 @@
 package com.svt.cube.config;
 
-import com.svt.cube.entity.Consumer;
+import com.svt.cube.entity.User;
 import com.svt.cube.entity.Topic;
-import com.svt.cube.repository.ConsumerRepository;
+import com.svt.cube.repository.UserRepository;
 import com.svt.cube.repository.TopicRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -15,20 +15,20 @@ import static java.time.Month.APRIL;
 import static java.time.Month.MARCH;
 
 @Configuration
-public class ConsumerConfig {
+public class UserConfig {
 
         // ToDo: Split it for each Entity (Check GitHub Ticket)
         @Bean
-        CommandLineRunner commandLineRunner(ConsumerRepository consumerRepository, TopicRepository topicRepository) {
+        CommandLineRunner commandLineRunner(UserRepository userRepository, TopicRepository topicRepository) {
                 return args -> {
-                        Consumer pierre = new Consumer(
+                        User pierre = new User(
                                         "Pierre",
                                         "Rocher",
                                         LocalDate.of(2000, APRIL, 12),
                                         "pierre.rocher@gmail.com",
                                         "1234");
 
-                        Consumer jean = new Consumer(
+                        User jean = new User(
                                         "Jean",
                                         "Flutte",
                                         LocalDate.of(1990, MARCH, 15),
@@ -48,7 +48,7 @@ public class ConsumerConfig {
                                         3,
                                         400,
                                         "Comment");
-                        consumerRepository.saveAll(
+                        userRepository.saveAll(
                                         List.of(pierre, jean));
 
                         topicRepository.saveAll(
