@@ -8,20 +8,15 @@ import java.time.Period;
 @Table
 public class Consumer {
     @Id
-    @SequenceGenerator(
-            name = "consumer_sequence",
-            sequenceName = "consumer_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "consumer_sequence"
-    )
+    @SequenceGenerator(name = "consumer_sequence", sequenceName = "consumer_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "consumer_sequence")
     private Integer id;
     private String firstName;
     private String name;
     private LocalDate birthDate;
+    @Column(nullable = false, unique = true, length = 45)
     private String email;
+    @Column(nullable = false, length = 64)
     private String password;
     @Transient
     private Integer age;
