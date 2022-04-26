@@ -33,13 +33,12 @@ public class UserController {
         return userService.getUsers();
     }
 
+    @CrossOrigin
     @PostMapping("/sign-up")
     public Void processRegister(@RequestBody User user) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
-        // add part for date, depends of front
-        // user.setBirthDate();
         User newUser = user;
 
         userRepository.save(newUser);
