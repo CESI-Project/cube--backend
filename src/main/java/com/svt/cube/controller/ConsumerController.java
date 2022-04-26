@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -37,9 +39,8 @@ public class ConsumerController {
     public Void processRegister(@RequestBody Consumer consumer) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(consumer.getPassword());
+        // set data password encoded in user
         consumer.setPassword(encodedPassword);
-        // add part for date, depends of front
-        // consumer.setBirthDate();
         Consumer newConsumer = consumer;
 
         consumerRepository.save(newConsumer);
