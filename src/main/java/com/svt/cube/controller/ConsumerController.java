@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -35,6 +33,7 @@ public class ConsumerController {
         return consumerService.getConsumers();
     }
 
+    @CrossOrigin
     @PostMapping("/sign-up")
     public Void processRegister(@RequestBody Consumer consumer) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
