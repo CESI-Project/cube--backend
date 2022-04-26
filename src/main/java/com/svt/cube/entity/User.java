@@ -5,11 +5,11 @@ import java.time.LocalDate;
 import java.time.Period;
 
 @Entity
-@Table
-public class Consumer {
+@Table(name = "users")
+public class User {
     @Id
-    @SequenceGenerator(name = "consumer_sequence", sequenceName = "consumer_sequence", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "consumer_sequence")
+    @SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence")
     private Integer id;
     private String firstName;
     private String name;
@@ -21,10 +21,10 @@ public class Consumer {
     @Transient
     private Integer age;
 
-    public Consumer() {
+    public User() {
     }
 
-    public Consumer(String firstName, String name, LocalDate birthDate, String email, String password) {
+    public User(String firstName, String name, LocalDate birthDate, String email, String password) {
         this.firstName = firstName;
         this.name = name;
         this.birthDate = birthDate;
@@ -90,7 +90,7 @@ public class Consumer {
 
     @Override
     public String toString() {
-        return "Consumer{" +
+        return "User{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", name='" + name + '\'' +
