@@ -3,6 +3,10 @@ package com.svt.cube.entity;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.HashSet;
+import java.util.Set;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "users")
@@ -10,18 +14,30 @@ public class User {
     @Id
     @SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence")
-    private Integer id;
+    private Long id;
     private String firstName;
     private String name;
+    private String userName;
     private LocalDate birthDate;
+    @NotBlank
+    @Email
     @Column(nullable = false, unique = true, length = 45)
     private String email;
     @Column(nullable = false, length = 64)
     private String password;
     @Transient
     private Integer age;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
 
     public User() {
+    }
+
+    public User(String userName, String email, String password) {
+        this.userName = userName;
+        this.email = email;
+        this.password = password;
     }
 
     public User(String firstName, String name, LocalDate birthDate, String email, String password) {
@@ -32,11 +48,11 @@ public class User {
         this.password = password;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -54,6 +70,14 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public LocalDate getBirthDate() {
@@ -88,6 +112,14 @@ public class User {
         this.age = age;
     }
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -97,6 +129,7 @@ public class User {
                 ", birthDate=" + birthDate +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", roles='" + roles + '\'' +
                 ", age='" + 12 + '\'' +
                 '}';
     }
