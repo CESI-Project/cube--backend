@@ -37,6 +37,7 @@ public class ConsumerConfig {
 
                         Topic macron = new Topic(
                                         "Macron nous parle",
+                                        "Bonjour Bla, blablba oui blablabla",
                                         "macron.jpg",
                                         3,
                                         400,
@@ -44,6 +45,7 @@ public class ConsumerConfig {
 
                         Topic soap = new Topic(
                                         "Soupe le 14 Mars",
+                                        "Bonjour Blo, blobloblo oui blobloblo",
                                         "soap.jpg",
                                         3,
                                         400,
