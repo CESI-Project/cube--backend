@@ -3,6 +3,7 @@ package com.svt.cube.entity;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.List;
 import java.util.HashSet;
 import java.util.Set;
 import javax.validation.constraints.Email;
@@ -27,6 +28,9 @@ public class User {
     private String email;
     @Column(nullable = false, length = 64)
     private String password;
+
+    @OneToMany
+    private List<Comment> comment;
     @Transient
     private Integer age;
     @JsonManagedReference(value = "user-favorite")
@@ -143,7 +147,8 @@ public class User {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", roles='" + roles + '\'' +
-                ", age='" + 12 + '\'' +
+                ", comment=" + comment +
+                ", age=" + age +
                 '}';
     }
 }
