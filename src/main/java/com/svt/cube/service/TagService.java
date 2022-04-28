@@ -23,4 +23,19 @@ public class TagService {
     public Tag createTag(Tag tag) {
         return tagRepository.save(tag);
     }
+
+    public void deleteTag(Integer id) {
+        tagRepository.deleteById(id);
+    }
+
+    public void modifyTag(Integer id, Tag tag) {
+        Tag updatedTag = tagRepository.getById(id);
+        if (tag.getNameEn() != null) {
+            updatedTag.setNameEn(tag.getNameEn());
+        }
+        if (tag.getNameFr() != null) {
+            updatedTag.setNameFr(tag.getNameFr());
+        }
+        tagRepository.save(updatedTag);
+    }
 }

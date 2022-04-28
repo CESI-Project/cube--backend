@@ -2,6 +2,8 @@ package com.svt.cube.entity;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table
 public class Tag {
@@ -11,6 +13,18 @@ public class Tag {
     private Integer id;
     private String nameEn;
     private String nameFr;
+    @JsonBackReference
+    @ManyToOne()
+    @JoinColumn(name = "familytag_id", nullable = false)
+    private FamilyTag familyTag;
+
+    public Tag() {
+    }
+
+    public Tag(String nameEn, String nameFr) {
+        this.nameEn = nameEn;
+        this.nameFr = nameFr;
+    }
 
     public Integer getId() {
         return id;
@@ -34,5 +48,13 @@ public class Tag {
 
     public void setNameFr(String nameFr) {
         this.nameFr = nameFr;
+    }
+
+    public FamilyTag getFamilyTag() {
+        return familyTag;
+    }
+
+    public void setFamilyTag(FamilyTag familyTag) {
+        this.familyTag = familyTag;
     }
 }
