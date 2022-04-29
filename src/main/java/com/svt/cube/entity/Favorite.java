@@ -13,11 +13,11 @@ public class Favorite {
     private Integer id;
     @JsonBackReference
     @ManyToOne()
-    @JoinColumn(nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
     @JsonBackReference
     @ManyToOne()
-    @JoinColumn(nullable = false)
+    @JoinColumn(name = "topic_id", nullable = false)
     private Topic topic;
 
     public Favorite() {
