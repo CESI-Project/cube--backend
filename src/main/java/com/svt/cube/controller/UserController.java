@@ -5,7 +5,6 @@ import com.svt.cube.repository.RoleRepository;
 import com.svt.cube.repository.UserRepository;
 import com.svt.cube.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
