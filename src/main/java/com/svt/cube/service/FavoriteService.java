@@ -21,4 +21,12 @@ public class FavoriteService {
         return favoriteRepository.findAll();
     }
 
+    public Favorite createFavorite(Favorite favorite) {
+        return favoriteRepository.save(favorite);
+    }
+
+    public void deleteFavorite(Integer favoriteId) {
+        favoriteRepository.deleteById(favoriteId);
+    }
+
 }

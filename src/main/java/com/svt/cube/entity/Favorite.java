@@ -11,13 +11,11 @@ public class Favorite {
     @SequenceGenerator(name = "favorite_sequence", sequenceName = "favorite_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "favorite_sequence")
     private Integer id;
-    @JsonBackReference
+    @JsonBackReference(value = "user-favorite")
     @ManyToOne()
-    @JoinColumn(name = "user_id", nullable = false)
     private User user;
-    @JsonBackReference
+    @JsonBackReference(value = "topic-favorite")
     @ManyToOne()
-    @JoinColumn(name = "topic_id", nullable = false)
     private Topic topic;
 
     public Favorite() {
@@ -40,7 +38,7 @@ public class Favorite {
         return user;
     }
 
-    public void setId(User user) {
+    public void setUser(User user) {
         this.user = user;
     }
 

@@ -29,7 +29,7 @@ public class User {
     private String password;
     @Transient
     private Integer age;
-    @JsonManagedReference
+    @JsonManagedReference(value = "user-favorite")
     @OneToMany
     private Set<Favorite> favorite;
     @ManyToMany(fetch = FetchType.LAZY)
@@ -125,11 +125,11 @@ public class User {
         this.roles = roles;
     }
 
-    public Set<Favorite> getFavorite() {
+    public Set<Favorite> getFavoriteForUser() {
         return favorite;
     }
 
-    public void setFavorite(Set<Favorite> favorite) {
+    public void setFavoriteForUser(Set<Favorite> favorite) {
         this.favorite = favorite;
     }
 

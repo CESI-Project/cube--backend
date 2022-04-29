@@ -19,7 +19,7 @@ public class Topic {
     private Integer react; // Postgres doesn't like the "like" word
     private Integer view;
     private String comment; // ToDo: Change it later
-    @JsonManagedReference
+    @JsonManagedReference(value = "topic-favorite")
     @OneToMany
     private Set<Favorite> favorite;
     @ManyToMany(cascade = { CascadeType.MERGE })
@@ -101,11 +101,11 @@ public class Topic {
         this.tags = tags;
     }
 
-    public Set<Favorite> getFavorite() {
+    public Set<Favorite> getFavoriteTopic() {
         return favorite;
     }
 
-    public void setFavorite(Set<Favorite> favorite) {
+    public void setFavoriteTopic(Set<Favorite> favorite) {
         this.favorite = favorite;
     }
 
