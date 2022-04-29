@@ -25,4 +25,8 @@ public class TopicService {
     public Optional<Topic> getTopicById(Integer id) {
         return topicRepository.findById(id);
     }
+
+    public Topic createTopic(Topic topic) {
+        return topicRepository.save(topic);
+    }
 }
