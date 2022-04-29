@@ -1,8 +1,12 @@
 package com.svt.cube.config;
 
 import com.svt.cube.entity.User;
+import com.svt.cube.entity.FamilyTag;
+import com.svt.cube.entity.Tag;
 import com.svt.cube.entity.Topic;
 import com.svt.cube.repository.UserRepository;
+import com.svt.cube.repository.FamilyTagRepository;
+import com.svt.cube.repository.TagRepository;
 import com.svt.cube.repository.TopicRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -19,7 +23,8 @@ public class UserConfig {
 
         // ToDo: Split it for each Entity (Check GitHub Ticket)
         @Bean
-        CommandLineRunner commandLineRunner(UserRepository userRepository, TopicRepository topicRepository) {
+        CommandLineRunner commandLineRunner(UserRepository userRepository, TopicRepository topicRepository,
+                        TagRepository tagRepository, FamilyTagRepository familyTagRepository) {
                 return args -> {
                         User pierre = new User(
                                         "Pierre",
@@ -50,11 +55,18 @@ public class UserConfig {
                                         3,
                                         400,
                                         "Comment");
+                        // Tag tag = new Tag(
+                        // "Fishes", "Poissons");
+                        FamilyTag familyTag = new FamilyTag(
+                                        "familytag",
+                                        "famille de tag");
                         userRepository.saveAll(
                                         List.of(pierre, jean));
 
                         topicRepository.saveAll(
                                         List.of(macron, soap));
+                        // tagRepository.save(tag);
+                        familyTagRepository.save(familyTag);
                 };
         }
 }

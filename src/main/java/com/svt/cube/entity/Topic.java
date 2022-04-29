@@ -1,5 +1,7 @@
 package com.svt.cube.entity;
 
+import java.util.Set;
+
 import javax.persistence.*;
 
 @Entity
@@ -15,6 +17,8 @@ public class Topic {
     private Integer react; // Postgres doesn't like the "like" word
     private Integer view;
     private String comment; // ToDo: Change it later
+    @ManyToMany(cascade = { CascadeType.MERGE })
+    Set<Tag> tags;
 
     public Topic() {
     }
@@ -82,6 +86,14 @@ public class Topic {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public Set<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
     }
 
     @Override
