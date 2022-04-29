@@ -1,20 +1,15 @@
 package com.svt.cube.entity;
 
+import java.util.Set;
+
 import javax.persistence.*;
 
 @Entity
 @Table
 public class Topic {
     @Id
-    @SequenceGenerator(
-            name = "topic_sequence",
-            sequenceName = "topic_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "topic_sequence"
-    )
+    @SequenceGenerator(name = "topic_sequence", sequenceName = "topic_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "topic_sequence")
     private Integer id;
     private String title;
     private String text;
@@ -22,6 +17,8 @@ public class Topic {
     private Integer react; // Postgres doesn't like the "like" word
     private Integer view;
     private String comment; // ToDo: Change it later
+    @ManyToMany
+    Set<Tag> tags;
 
     public Topic() {
     }
@@ -89,6 +86,14 @@ public class Topic {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public Set<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.svt.cube.entity;
 
+import java.util.Set;
+
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -17,6 +19,8 @@ public class Tag {
     @ManyToOne()
     @JoinColumn(name = "familytag_id", nullable = false)
     private FamilyTag familyTag;
+    @ManyToMany
+    Set<Topic> topics;
 
     public Tag() {
     }
@@ -56,5 +60,13 @@ public class Tag {
 
     public void setFamilyTag(FamilyTag familyTag) {
         this.familyTag = familyTag;
+    }
+
+    public Set<Topic> getTopics() {
+        return topics;
+    }
+
+    public void setTopics(Set<Topic> topics) {
+        this.topics = topics;
     }
 }
