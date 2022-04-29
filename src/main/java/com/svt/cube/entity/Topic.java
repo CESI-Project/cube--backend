@@ -17,7 +17,7 @@ public class Topic {
     private Integer react; // Postgres doesn't like the "like" word
     private Integer view;
     private String comment; // ToDo: Change it later
-    @ManyToMany
+    @ManyToMany(cascade = { CascadeType.MERGE })
     Set<Tag> tags;
 
     public Topic() {

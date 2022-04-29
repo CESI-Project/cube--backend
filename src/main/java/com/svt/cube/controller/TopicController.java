@@ -1,5 +1,6 @@
 package com.svt.cube.controller;
 
+import com.svt.cube.entity.Tag;
 import com.svt.cube.entity.Topic;
 import com.svt.cube.payload.response.MessageResponse;
 import com.svt.cube.service.TopicService;
@@ -10,6 +11,7 @@ import javax.validation.Valid;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping(path = "api/v1/topic")
@@ -29,6 +31,12 @@ public class TopicController {
     }
 
     @CrossOrigin
+    @GetMapping("/byTags")
+    public List<Topic> getTopicsByTags(@RequestBody Set<Tag> tags) {
+        return topicService.getTopicsByTags(tags);
+    }
+
+    @CrossOrigin
     @GetMapping("/{id}")
     public Optional<Topic> getTopicById(@PathVariable Integer id) {
         return topicService.getTopicById(id);
@@ -39,5 +47,12 @@ public class TopicController {
     public ResponseEntity<?> createTopic(@Valid @RequestBody Topic topic) {
         topicService.createTopic(topic);
         return ResponseEntity.ok(new MessageResponse("Topic registered successfully!"));
+    }
+
+    @CrossOrigin
+    @PutMapping("/{id}")
+    public ResponseEntity<?> modifyTopic(@Valid @PathVariable Integer id, @RequestBody Topic topic) {
+        topicService.modifyTopic(topic);
+        return ResponseEntity.ok(new MessageResponse("Topic modified successfully!"));
     }
 }
