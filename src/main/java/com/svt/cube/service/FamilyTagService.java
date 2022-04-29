@@ -28,17 +28,7 @@ public class FamilyTagService {
         familyTagRepository.deleteById(id);
     }
 
-    public void modifyFamilyTag(Integer id, FamilyTag familyTag) {
-        FamilyTag updatedTag = familyTagRepository.getById(id);
-        if (familyTag.getNameEn() != null) {
-            updatedTag.setNameEn(familyTag.getNameEn());
-        }
-        if (familyTag.getNameFr() != null) {
-            updatedTag.setNameFr(familyTag.getNameFr());
-        }
-        if (familyTag.getTags() != null) {
-            updatedTag.setTags(familyTag.getTags());
-        }
-        familyTagRepository.save(updatedTag);
+    public void modifyFamilyTag(FamilyTag familyTag) {
+        familyTagRepository.save(familyTag);
     }
 }

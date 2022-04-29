@@ -43,7 +43,7 @@ public class FamilyTagController {
     @PutMapping("/{id}")
     // @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
     public void modifyFamilyTag(@PathVariable Integer id, @RequestBody FamilyTag familyTag) {
-        familyTagService.modifyFamilyTag(id, familyTag);
+        familyTagService.modifyFamilyTag(familyTag);
     }
 
 }

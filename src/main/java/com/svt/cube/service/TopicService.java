@@ -41,8 +41,6 @@ public class TopicService {
     }
 
     public void modifyTag(Topic topic) {
-        // Topic updatedTopic = topicRepository.getById(topic.getId());
-        // updatedTopic = topic;
         topicRepository.save(topic);
     }
 }

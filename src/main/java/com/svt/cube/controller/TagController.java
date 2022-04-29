@@ -43,7 +43,7 @@ public class TagController {
     @PutMapping("/{id}")
     // @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
     public void modifyTag(@PathVariable Integer id, @RequestBody Tag tag) {
-        tagService.modifyTag(id, tag);
+        tagService.modifyTag(tag);
     }
 
 }
