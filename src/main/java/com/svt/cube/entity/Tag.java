@@ -20,7 +20,7 @@ public class Tag {
     @JoinColumn(name = "familytag_id", nullable = false)
     private FamilyTag familyTag;
     @ManyToMany
-    Set<Topic> topics;
+    private Set<Topic> topics;
 
     public Tag() {
     }

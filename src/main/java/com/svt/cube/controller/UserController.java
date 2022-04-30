@@ -126,8 +126,6 @@ public class UserController {
         }
         user.setRoles(roles);
         user.setBirthDate(signUpRequest.getBirthDate());
-        user.setFirstName(signUpRequest.getFirstName());
-        user.setName(signUpRequest.getName());
         userRepository.save(user);
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }

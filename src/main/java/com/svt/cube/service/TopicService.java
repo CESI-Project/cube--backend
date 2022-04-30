@@ -28,7 +28,11 @@ public class TopicService {
     }
 
     public Topic getTopicById(Integer id) {
-        return topicRepository.getById(id);
+        Topic topic = topicRepository.getById(id);
+        var view = topic.getView();
+        topic.setView(view + 1);
+        topicRepository.save(topic);
+        return topic;
     }
 
     public void addPicturePath(Integer id, String namePicture) {

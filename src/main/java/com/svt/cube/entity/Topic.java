@@ -3,6 +3,9 @@ package com.svt.cube.entity;
 import java.util.Set;
 
 import javax.persistence.*;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table
@@ -16,20 +19,23 @@ public class Topic {
     private String picture;
     private Integer react; // Postgres doesn't like the "like" word
     private Integer view;
-    private String comment; // ToDo: Change it later
+    @OneToMany
+    private List<Comment> comment;
+    @JsonManagedReference(value = "topic-favorite")
+    @OneToMany
+    private Set<Favorite> favorite;
     @ManyToMany(cascade = { CascadeType.MERGE })
-    Set<Tag> tags;
+    private Set<Tag> tags;
 
     public Topic() {
     }
 
-    public Topic(String title, String text, String picture, Integer react, Integer view, String comment) {
+    public Topic(String title, String text, String picture, Integer react, Integer view) {
         this.title = title;
         this.text = text;
         this.picture = picture;
         this.react = react;
         this.view = view;
-        this.comment = comment;
     }
 
     public Integer getId() {
@@ -80,11 +86,11 @@ public class Topic {
         this.view = view;
     }
 
-    public String getComment() {
+    public List<Comment> getComment() {
         return comment;
     }
 
-    public void setComment(String comment) {
+    public void setComment(List<Comment> comment) {
         this.comment = comment;
     }
 
@@ -96,6 +102,14 @@ public class Topic {
         this.tags = tags;
     }
 
+    public Set<Favorite> getFavoriteTopic() {
+        return favorite;
+    }
+
+    public void setFavoriteTopic(Set<Favorite> favorite) {
+        this.favorite = favorite;
+    }
+
     @Override
     public String toString() {
         return "Topic{" +
@@ -105,7 +119,7 @@ public class Topic {
                 ", picture='" + picture + '\'' +
                 ", react=" + react +
                 ", view=" + view +
-                ", comment='" + comment + '\'' +
+                ", comment=" + comment +
                 '}';
     }
 }
