@@ -28,11 +28,15 @@ public class TopicService {
     }
 
     public Topic getTopicById(Integer id) {
+        return topicRepository.findById(id).get();
+    }
+
+    public void addPicturePath(Integer id, String namePicture) {
+        String path = "http://localhost:8080/api/v1/filesController/files/";
         Topic topic = topicRepository.getById(id);
-        var view = topic.getView();
-        topic.setView(view + 1);
+        String pictureUrl = path + namePicture;
+        topic.setPicture(pictureUrl);
         topicRepository.save(topic);
-        return topic;
     }
 
     public Topic createTopic(Topic topic) {
