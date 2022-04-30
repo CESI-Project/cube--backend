@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import com.svt.cube.entity.Favorite;
+import com.svt.cube.entity.TopicUserWrapper;
 import com.svt.cube.payload.response.MessageResponse;
 import com.svt.cube.service.FavoriteService;
 
@@ -35,6 +36,18 @@ public class FavoriteController {
     // hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
     public List<Favorite> getAllFavorites() {
         return favoriteService.getAllFavorites();
+    }
+
+    @CrossOrigin
+    @GetMapping("/hisFavorite")
+    // @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_MODERATOR') or
+    // hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
+    public Boolean getIsFavorite(@Valid @RequestBody TopicUserWrapper topicUserWrapper) {
+        Favorite favorite = favoriteService.getIsFavorite(topicUserWrapper);
+        if (favorite != null) {
+            return true;
+        }
+        return false;
     }
 
     @CrossOrigin
