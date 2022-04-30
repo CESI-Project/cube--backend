@@ -26,12 +26,6 @@ public class Topic {
     private Set<Favorite> favorite;
     @ManyToMany(cascade = { CascadeType.MERGE })
     private Set<Tag> tags;
-    private String comment; // ToDo: Change it later
-    @JsonManagedReference(value = "topic-favorite")
-    @OneToMany
-    private Set<Favorite> favorite;
-    @ManyToMany(cascade = { CascadeType.MERGE })
-    private Set<Tag> tags;
 
     public Topic() {
     }
