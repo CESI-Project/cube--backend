@@ -4,6 +4,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table
 public class Topic {
@@ -17,8 +19,11 @@ public class Topic {
     private Integer react; // Postgres doesn't like the "like" word
     private Integer view;
     private String comment; // ToDo: Change it later
+    @JsonManagedReference(value = "topic-favorite")
+    @OneToMany
+    private Set<Favorite> favorite;
     @ManyToMany(cascade = { CascadeType.MERGE })
-    Set<Tag> tags;
+    private Set<Tag> tags;
 
     public Topic() {
     }
@@ -94,6 +99,14 @@ public class Topic {
 
     public void setTags(Set<Tag> tags) {
         this.tags = tags;
+    }
+
+    public Set<Favorite> getFavoriteTopic() {
+        return favorite;
+    }
+
+    public void setFavoriteTopic(Set<Favorite> favorite) {
+        this.favorite = favorite;
     }
 
     @Override
