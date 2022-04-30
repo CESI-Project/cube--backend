@@ -10,7 +10,5 @@ import java.util.Set;
 
 @Repository
 public interface TopicRepository extends JpaRepository<Topic, Integer> {
-    Topic getById(Integer id);
-
     List<Topic> findAllByTagsIn(Set<Tag> tags);
 }
