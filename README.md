@@ -24,6 +24,14 @@ CREATE DATABASE cube;
 GRANT ALL PRIVILEGES ON DATABASE "cube" TO postgres;
 ```
 
+After running project 
+```SQL
+INSERT INTO roles(name) VALUES('ROLE_USER');
+INSERT INTO roles(name) VALUES('ROLE_MODERATOR');
+INSERT INTO roles(name) VALUES('ROLE_ADMIN');
+INSERT INTO roles(name) VALUES('ROLE_SUPERADMIN');
+```
+
 ## How to run
 
 ### With Docker

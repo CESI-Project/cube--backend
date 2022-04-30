@@ -23,7 +23,6 @@ import static java.time.Month.MARCH;
 @Configuration
 public class UserConfig {
 
-        // ToDo: Split it for each Entity (Check GitHub Ticket)
         @Bean
         CommandLineRunner commandLineRunner(UserRepository userRepository, TopicRepository topicRepository,
                         TagRepository tagRepository, FamilyTagRepository familyTagRepository, CommentRepository commentRepository) {
@@ -31,8 +30,7 @@ public class UserConfig {
 
                         // ###### USER ######
                         User pierre = new User(
-                                        "Pierre",
-                                        "Rocher",
+                                        "PierreRocher",
                                         LocalDate.of(2000, APRIL, 12),
                                         "pierre.rocher@gmail.com",
                                         "1234"
@@ -40,8 +38,7 @@ public class UserConfig {
 
 
                         User jean = new User(
-                                        "Jean",
-                                        "Flutte",
+                                        "JeanFlutte",
                                         LocalDate.of(1990, MARCH, 15),
                                         "jean.flutte@gmail.com",
                                         "1234"

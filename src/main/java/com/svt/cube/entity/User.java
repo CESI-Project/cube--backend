@@ -18,8 +18,6 @@ public class User {
     @SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence")
     private Long id;
-    private String firstName;
-    private String name;
     private String userName;
     private LocalDate birthDate;
     @NotBlank
@@ -49,9 +47,8 @@ public class User {
         this.password = password;
     }
 
-    public User(String firstName, String name, LocalDate birthDate, String email, String password) {
-        this.firstName = firstName;
-        this.name = name;
+    public User(String userName, LocalDate birthDate, String email, String password) {
+        this.userName = userName;
         this.birthDate = birthDate;
         this.email = email;
         this.password = password;
@@ -63,22 +60,6 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getUserName() {
@@ -141,14 +122,12 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", name='" + name + '\'' +
+                ", userName='" + userName + '\'' +
                 ", birthDate=" + birthDate +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", roles='" + roles + '\'' +
-                ", comment=" + comment +
                 ", age=" + age +
+                ", roles=" + roles +
                 '}';
     }
 }
