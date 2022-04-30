@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -28,8 +27,12 @@ public class TopicService {
         return topicRepository.findAllByTagsIn(tags);
     }
 
-    public Optional<Topic> getTopicById(Integer id) {
-        return topicRepository.findById(id);
+    public Topic getTopicById(Integer id) {
+        Topic topic = topicRepository.getById(id);
+        var view = topic.getView();
+        topic.setView(view + 1);
+        topicRepository.save(topic);
+        return topic;
     }
 
     public Topic createTopic(Topic topic) {
