@@ -32,8 +32,10 @@ public class TopicService {
     }
 
     public void addPicturePath(Integer id, String namePicture) {
+        String path = "http://localhost:8080/api/v1/filesController/files/";
         Topic topic = topicRepository.getById(id);
-        topic.setPicture(namePicture);
+        String pictureUrl = path + namePicture;
+        topic.setPicture(pictureUrl);
         topicRepository.save(topic);
     }
 

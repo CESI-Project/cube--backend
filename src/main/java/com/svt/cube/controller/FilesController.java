@@ -37,9 +37,10 @@ public class FilesController {
     public ResponseEntity<MessageResponse> uploadFile(@PathVariable Integer id,
             @RequestParam("file") MultipartFile file) {
         String message = "";
+        String nameFile = id.toString() + "_" + file.getOriginalFilename();
         try {
-            topicService.addPicturePath(id, file.getOriginalFilename());
-            storageService.save(file);
+            topicService.addPicturePath(id, nameFile);
+            storageService.saveTopic(file, nameFile);
             message = "Uploaded the file successfully: " + file.getOriginalFilename();
             return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse(message));
         } catch (Exception e) {
