@@ -22,11 +22,21 @@ public class CommentController {
 
     @CrossOrigin
     @GetMapping("/{id}")
-    public List<Comment> getComments(@PathVariable Integer id) { return commentService.getComments(id); }
+    public List<Comment> getComments(@PathVariable Integer id) {
+        return commentService.getComments(id);
+    }
 
     @CrossOrigin
     @PostMapping
-    public void pullComment(@RequestBody Comment comment ) {
+    public void pullComment(@RequestBody Comment comment) {
         commentRepository.save(comment);
+    }
+
+    @CrossOrigin
+    @DeleteMapping("/{id}")
+    // @PreAuthorize("hasRole('ROLE_MODE') or hasRole('ROLE_ADMIN') or
+    // hasRole('ROLE_SUPERADMIN')")
+    public void deleteTag(@PathVariable Integer id) {
+        commentRepository.deleteById(id);
     }
 }
