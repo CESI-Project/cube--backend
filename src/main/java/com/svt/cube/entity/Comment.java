@@ -25,19 +25,19 @@ public class Comment {
     @CreatedDate
     private LocalDate createdAt;
     private Integer topicId;
-    @ManyToOne
-    private User user;
+
+    private Integer userId;
 
     public Comment() {
     }
 
-    public Comment(String text, Integer react, Integer dislike, LocalDate createdAt, Integer topicId, User user) {
+    public Comment(String text, Integer react, Integer dislike, LocalDate createdAt, Integer topicId, Integer userId) {
         this.text = text;
         this.react = react;
         this.dislike = dislike;
         this.createdAt = createdAt;
         this.topicId = topicId;
-        this.user = user;
+        this.userId = userId;
     }
 
     public Integer getId() {
@@ -88,11 +88,24 @@ public class Comment {
         this.topicId = topicId;
     }
 
-    public User getUser() {
-        return user;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id=" + id +
+                ", text='" + text + '\'' +
+                ", react=" + react +
+                ", dislike=" + dislike +
+                ", createdAt=" + createdAt +
+                ", topicId=" + topicId +
+                ", userId=" + userId +
+                '}';
     }
 }
