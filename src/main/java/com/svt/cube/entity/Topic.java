@@ -17,7 +17,6 @@ public class Topic {
     private String title;
     private String text;
     private String picture;
-    private Integer react; // Postgres doesn't like the "like" word
     private Integer view;
     @OneToMany
     private List<Comment> comment;
@@ -30,11 +29,10 @@ public class Topic {
     public Topic() {
     }
 
-    public Topic(String title, String text, String picture, Integer react, Integer view) {
+    public Topic(String title, String text, String picture, Integer view) {
         this.title = title;
         this.text = text;
         this.picture = picture;
-        this.react = react;
         this.view = view;
     }
 
@@ -60,14 +58,6 @@ public class Topic {
 
     public void setText(String text) {
         this.text = text;
-    }
-
-    public Integer getReact() {
-        return react;
-    }
-
-    public void setReact(Integer react) {
-        this.react = react;
     }
 
     public String getPicture() {
@@ -117,7 +107,6 @@ public class Topic {
                 ", title='" + title + '\'' +
                 ", text='" + text + '\'' +
                 ", picture='" + picture + '\'' +
-                ", react=" + react +
                 ", view=" + view +
                 ", comment=" + comment +
                 '}';

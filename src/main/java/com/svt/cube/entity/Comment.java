@@ -9,19 +9,10 @@ import java.time.LocalDate;
 @Table
 public class Comment {
     @Id
-    @SequenceGenerator(
-            name = "comment_sequence",
-            sequenceName = "comment_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "comment_sequence"
-    )
+    @SequenceGenerator(name = "comment_sequence", sequenceName = "comment_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "comment_sequence")
     private Integer id;
     private String text;
-    private Integer react;
-    private Integer dislike;
     @CreatedDate
     private LocalDate createdAt;
     private Integer topicId;
@@ -31,10 +22,8 @@ public class Comment {
     public Comment() {
     }
 
-    public Comment(String text, Integer react, Integer dislike, LocalDate createdAt, Integer topicId, Integer userId) {
+    public Comment(String text, LocalDate createdAt, Integer topicId, Integer userId) {
         this.text = text;
-        this.react = react;
-        this.dislike = dislike;
         this.createdAt = createdAt;
         this.topicId = topicId;
         this.userId = userId;
@@ -54,22 +43,6 @@ public class Comment {
 
     public void setText(String text) {
         this.text = text;
-    }
-
-    public Integer getReact() {
-        return react;
-    }
-
-    public void setReact(Integer react) {
-        this.react = react;
-    }
-
-    public Integer getDislike() {
-        return dislike;
-    }
-
-    public void setDislike(Integer dislike) {
-        this.dislike = dislike;
     }
 
     public LocalDate getCreatedAt() {
@@ -101,8 +74,6 @@ public class Comment {
         return "Comment{" +
                 "id=" + id +
                 ", text='" + text + '\'' +
-                ", react=" + react +
-                ", dislike=" + dislike +
                 ", createdAt=" + createdAt +
                 ", topicId=" + topicId +
                 ", userId=" + userId +
