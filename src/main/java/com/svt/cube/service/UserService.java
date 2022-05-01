@@ -20,4 +20,14 @@ public class UserService {
     public List<User> getUsers() {
         return userRepository.findAll();
     }
+
+    public void updatePassword(Long id, String newPassword) {
+        User user = userRepository.getById(id);
+        user.setPassword(newPassword);
+        userRepository.save(user);
+    }
+
+    public void updateProfile(User newInfoUser) {
+        userRepository.save(newInfoUser);
+    }
 }

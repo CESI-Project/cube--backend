@@ -5,12 +5,7 @@ import com.svt.cube.repository.RoleRepository;
 import com.svt.cube.repository.UserRepository;
 import com.svt.cube.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -61,8 +56,11 @@ public class UserController {
     @CrossOrigin
     @PostMapping("auth/log-in")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+        System.out.println("valeur new pass encode: " + loginRequest.getPassword());
+
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
 
@@ -128,5 +126,20 @@ public class UserController {
         user.setBirthDate(signUpRequest.getBirthDate());
         userRepository.save(user);
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+    }
+
+    @CrossOrigin
+    @PutMapping("/{id}/modifyPassword")
+    public ResponseEntity<?> updatePassword(@Valid @PathVariable Long id, @RequestBody String newPassword) {
+        String password = encoder.encode(newPassword);
+        userService.updatePassword(id, password);
+        return ResponseEntity.ok(new MessageResponse("The password has been updated"));
+    }
+
+    @CrossOrigin
+    @PutMapping("/{id}/modifyProfil")
+    public ResponseEntity<?> udpdateProfile(@Valid @RequestBody User newInfoUser) {
+        userService.updateProfile(newInfoUser);
+        return ResponseEntity.ok(new MessageResponse("Profil User succesfully updated"));
     }
 }
