@@ -3,9 +3,6 @@ package com.svt.cube.service;
 import java.util.List;
 
 import com.svt.cube.entity.Favorite;
-import com.svt.cube.entity.Topic;
-import com.svt.cube.entity.TopicUserWrapper;
-import com.svt.cube.entity.User;
 import com.svt.cube.repository.FavoriteRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +17,8 @@ public class FavoriteService {
         this.favoriteRepository = favoriteRepository;
     }
 
-    public List<Favorite> getAllFavorites() {
-        return favoriteRepository.findAll();
+    public List<Favorite> getAllFavoritesUser(Long userId) {
+        return favoriteRepository.findAllByUserId(userId);
     }
 
     public Favorite createFavorite(Favorite favorite) {
@@ -32,10 +29,8 @@ public class FavoriteService {
         favoriteRepository.deleteById(favoriteId);
     }
 
-    public Favorite getIsFavorite(TopicUserWrapper topicUserWrapper) {
-        Topic topic = topicUserWrapper.getTopic();
-        User user = topicUserWrapper.getUser();
-        return favoriteRepository.findByTopicAndUser(topic, user);
+    public Favorite getIsFavorite(Favorite favorite) {
+        return favoriteRepository.findByTopicIdAndUserId(favorite.gettopicId(), favorite.getuserId());
     }
 
 }
