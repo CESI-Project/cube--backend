@@ -22,6 +22,16 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public void updatePassword(Long id, String newPassword) {
+        User user = userRepository.getById(id);
+        user.setPassword(newPassword);
+        userRepository.save(user);
+    }
+
+    public void updateProfile(User newInfoUser) {
+        userRepository.save(newInfoUser);
+    }
+
     public Optional<User> getUser(Long id) {
         return userRepository.findById(id);
     }
