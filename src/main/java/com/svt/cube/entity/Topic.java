@@ -18,6 +18,8 @@ public class Topic {
     private String text;
     private String picture;
     private Integer view;
+    @Column(name = "is_validated", columnDefinition = "boolean default false")
+    private Boolean isValidated = false;
     @OneToMany
     private List<Comment> comment;
     @JsonManagedReference(value = "topic-favorite")
@@ -74,6 +76,14 @@ public class Topic {
 
     public void setView(Integer view) {
         this.view = view;
+    }
+
+    public Boolean getIsValidated() {
+        return isValidated;
+    }
+
+    public void setIsValidated(Boolean isValidated) {
+        this.isValidated = isValidated;
     }
 
     public List<Comment> getComment() {

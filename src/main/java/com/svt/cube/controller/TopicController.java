@@ -54,4 +54,18 @@ public class TopicController {
         topicService.modifyTopic(topic);
         return ResponseEntity.ok(new MessageResponse("Topic modified successfully!"));
     }
+
+    @CrossOrigin
+    @PutMapping("/{id}/validation")
+    public ResponseEntity<?> validationTopic(@Valid @PathVariable Integer id) {
+        topicService.validationTopic(id);
+        return ResponseEntity.ok(new MessageResponse("Topic is validated !"));
+    }
+
+    @CrossOrigin
+    @PutMapping("/{id}/unvalidation")
+    public ResponseEntity<?> unvalidationTopic(@Valid @PathVariable Integer id) {
+        topicService.unvalidationTopic(id);
+        return ResponseEntity.ok(new MessageResponse("Topic is unvalidated !"));
+    }
 }

@@ -50,4 +50,16 @@ public class TopicService {
     public void modifyTag(Topic topic) {
         topicRepository.save(topic);
     }
+
+    public void validationTopic(Integer topicId) {
+        Topic topicToValidated = topicRepository.findById(topicId).get();
+        topicToValidated.setIsValidated(true);
+        topicRepository.save(topicToValidated);
+    }
+
+    public void unvalidationTopic(Integer topicId) {
+        Topic topicToValidated = topicRepository.findById(topicId).get();
+        topicToValidated.setIsValidated(false);
+        topicRepository.save(topicToValidated);
+    }
 }
