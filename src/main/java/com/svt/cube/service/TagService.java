@@ -20,6 +20,10 @@ public class TagService {
         return tagRepository.findAll();
     }
 
+    public List<Tag> getFamilyTagsTags(Integer familyTagId) {
+        return tagRepository.findAllByFamilyTagId(familyTagId);
+    }
+
     public Tag createTag(Tag tag) {
         return tagRepository.save(tag);
     }
