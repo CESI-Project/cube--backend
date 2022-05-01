@@ -56,8 +56,6 @@ public class UserController {
     @CrossOrigin
     @PostMapping("auth/log-in")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-        System.out.println("valeur new pass encode: " + loginRequest.getPassword());
-
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
