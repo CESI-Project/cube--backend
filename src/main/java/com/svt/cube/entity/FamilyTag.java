@@ -1,10 +1,6 @@
 package com.svt.cube.entity;
 
-import java.util.List;
-
 import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table
@@ -15,17 +11,8 @@ public class FamilyTag {
     private Integer id;
     private String nameEn;
     private String nameFr;
-    @JsonManagedReference
-    @OneToMany(mappedBy = "familyTag")
-    private List<Tag> tags;
 
     public FamilyTag() {
-    }
-
-    public FamilyTag(String nameEn, String nameFr, List<Tag> tags) {
-        this.nameEn = nameEn;
-        this.nameFr = nameFr;
-        this.tags = tags;
     }
 
     public FamilyTag(String nameEn, String nameFr) {
@@ -55,13 +42,5 @@ public class FamilyTag {
 
     public void setNameFr(String nameFr) {
         this.nameFr = nameFr;
-    }
-
-    public List<Tag> getTags() {
-        return tags;
-    }
-
-    public void setTags(List<Tag> tags) {
-        this.tags = tags;
     }
 }

@@ -4,8 +4,6 @@ import java.util.Set;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 @Entity
 @Table
 public class Tag {
@@ -15,10 +13,7 @@ public class Tag {
     private Integer id;
     private String nameEn;
     private String nameFr;
-    @JsonBackReference
-    @ManyToOne()
-    @JoinColumn(name = "familytag_id", nullable = false)
-    private FamilyTag familyTag;
+    private Integer familyTagId;
     @ManyToMany
     private Set<Topic> topics;
 
@@ -54,12 +49,12 @@ public class Tag {
         this.nameFr = nameFr;
     }
 
-    public FamilyTag getFamilyTag() {
-        return familyTag;
+    public Integer getFamilyTagId() {
+        return familyTagId;
     }
 
-    public void setFamilyTag(FamilyTag familyTag) {
-        this.familyTag = familyTag;
+    public void setfamilyTagId(Integer familyTagId) {
+        this.familyTagId = familyTagId;
     }
 
     public Set<Topic> getTopics() {
