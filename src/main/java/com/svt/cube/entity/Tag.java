@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Table
 public class Tag {
     @Id
-    @SequenceGenerator(name = "tag_sequence", sequenceName = "tag_sequence", allocationSize = 1)
+    @SequenceGenerator(name = "tag_sequence", sequenceName = "tag_sequence", initialValue = 18, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tag_sequence")
     private Integer id;
     private String nameEn;

@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @Table
 public class Comment {
     @Id
-    @SequenceGenerator(name = "comment_sequence", sequenceName = "comment_sequence", allocationSize = 1)
+    @SequenceGenerator(name = "comment_sequence", sequenceName = "comment_sequence", initialValue = 3, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "comment_sequence")
     private Integer id;
     private String text;

@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Table
 public class FamilyTag {
     @Id
-    @SequenceGenerator(name = "familyTag_sequence", sequenceName = "familyTag_sequence", allocationSize = 1)
+    @SequenceGenerator(name = "familyTag_sequence", sequenceName = "familyTag_sequence", initialValue = 6, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "familyTag_sequence")
     private Integer id;
     private String nameEn;
