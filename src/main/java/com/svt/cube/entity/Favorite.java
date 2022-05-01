@@ -2,8 +2,6 @@ package com.svt.cube.entity;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 @Entity
 @Table
 public class Favorite {
@@ -11,19 +9,15 @@ public class Favorite {
     @SequenceGenerator(name = "favorite_sequence", sequenceName = "favorite_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "favorite_sequence")
     private Integer id;
-    @JsonBackReference(value = "user-favorite")
-    @ManyToOne()
-    private User user;
-    @JsonBackReference(value = "topic-favorite")
-    @ManyToOne()
-    private Topic topic;
+    private Long userId;
+    private Integer topicId;
 
     public Favorite() {
     }
 
-    public Favorite(User user, Topic topic) {
-        this.user = user;
-        this.topic = topic;
+    public Favorite(Long userId, Integer topicId) {
+        this.userId = userId;
+        this.topicId = topicId;
     }
 
     public Integer getId() {
@@ -34,19 +28,19 @@ public class Favorite {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public Long getuserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setuserId(Long userId) {
+        this.userId = userId;
     }
 
-    public Topic getTopic() {
-        return topic;
+    public Integer gettopicId() {
+        return topicId;
     }
 
-    public void setTopic(Topic topic) {
-        this.topic = topic;
+    public void settopicId(Integer topicId) {
+        this.topicId = topicId;
     }
 }
