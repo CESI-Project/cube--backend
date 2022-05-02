@@ -63,9 +63,12 @@ public class UserController {
     @CrossOrigin
     @PostMapping("auth/log-in")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+        User user = userRepository.findByUserName(loginRequest.getUsername()).get();
+        if (user.getIsActivated() == false) {
+            return ResponseEntity.ok(new MessageResponse("User account desactivated!"));
+        }
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
 
@@ -146,5 +149,19 @@ public class UserController {
     public ResponseEntity<?> udpdateProfile(@Valid @RequestBody User newInfoUser) {
         userService.updateProfile(newInfoUser);
         return ResponseEntity.ok(new MessageResponse("Profil User succesfully updated"));
+    }
+
+    @CrossOrigin
+    @PutMapping("/{id}/activation")
+    public ResponseEntity<?> activatedProfile(@Valid @PathVariable Long id) {
+        userService.activatedProfile(id);
+        return ResponseEntity.ok(new MessageResponse("Profil User reactivated succesfully"));
+    }
+
+    @CrossOrigin
+    @PutMapping("/{id}/desactivation")
+    public ResponseEntity<?> desactivatedProfile(@Valid @PathVariable Long id) {
+        userService.desactivatedProfile(id);
+        return ResponseEntity.ok(new MessageResponse("Profil User desactivated succesfully updated"));
     }
 }

@@ -18,6 +18,8 @@ public class User {
     private String userName;
     private LocalDate birthDate;
     private String picture;
+    @Column(name = "is_activated", columnDefinition = "boolean default true")
+    private Boolean isActivated = true;
     @NotBlank
     @Email
     @Column(nullable = false, unique = true, length = 45)
@@ -77,6 +79,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Boolean getIsActivated() {
+        return isActivated;
+    }
+
+    public void setIsActivated(Boolean isActivated) {
+        this.isActivated = isActivated;
     }
 
     public String getPassword() {
