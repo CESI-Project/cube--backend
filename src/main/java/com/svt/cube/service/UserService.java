@@ -28,6 +28,14 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public void addPicturePath(Long id, String namePicture) {
+        String path = "http://localhost:8080/api/v1/filesController/files/";
+        User user = userRepository.getById(id);
+        String pictureUrl = path + namePicture;
+        user.setPicture(pictureUrl);
+        userRepository.save(user);
+    }
+
     public void updateProfile(User newInfoUser) {
         userRepository.save(newInfoUser);
     }

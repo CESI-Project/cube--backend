@@ -17,6 +17,7 @@ public class User {
     private Long id;
     private String userName;
     private LocalDate birthDate;
+    private String picture;
     @NotBlank
     @Email
     @Column(nullable = false, unique = true, length = 45)
@@ -84,6 +85,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
     public Integer getAge() {
