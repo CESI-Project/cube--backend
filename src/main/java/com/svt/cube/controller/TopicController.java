@@ -45,7 +45,11 @@ public class TopicController {
     @CrossOrigin
     @PostMapping
     public ResponseEntity<?> createTopic(@Valid @RequestBody Topic topic, @RequestParam("file") MultipartFile file) {
-        topicService.createTopic(topic, file);
+        if (file == null) {
+            topicService.createTopic(topic);
+        } else {
+            topicService.createTopicWithPhoto(topic, file);
+        }
         return ResponseEntity.ok(new MessageResponse("Topic registered successfully!"));
     }
 

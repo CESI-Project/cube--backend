@@ -42,7 +42,11 @@ public class TopicService {
         topicRepository.save(topic);
     }
 
-    public Topic createTopic(Topic topic, MultipartFile file) {
+    public Topic createTopic(Topic topic) {
+        return topicRepository.save(topic);
+    }
+
+    public Topic createTopicWithPhoto(Topic topic, MultipartFile file) {
         Topic newTopic = topicRepository.save(topic);
         String nameFile = "Topic_" + newTopic.getId().toString() + "_" + file.getOriginalFilename();
         storageService.saveTopic(file, nameFile);
