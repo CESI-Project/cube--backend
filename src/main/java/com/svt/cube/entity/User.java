@@ -9,8 +9,6 @@ import java.util.Set;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @Entity
 @Table(name = "users")
 public class User {
@@ -31,9 +29,6 @@ public class User {
     private List<Comment> comment;
     @Transient
     private Integer age;
-    @JsonManagedReference(value = "user-favorite")
-    @OneToMany
-    private Set<Favorite> favorite;
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
@@ -108,14 +103,6 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
-    }
-
-    public Set<Favorite> getFavoriteForUser() {
-        return favorite;
-    }
-
-    public void setFavoriteForUser(Set<Favorite> favorite) {
-        this.favorite = favorite;
     }
 
     @Override

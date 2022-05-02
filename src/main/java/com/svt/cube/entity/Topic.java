@@ -5,8 +5,6 @@ import java.util.Set;
 import javax.persistence.*;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @Entity
 @Table
 public class Topic {
@@ -22,9 +20,6 @@ public class Topic {
     private Boolean isValidated = false;
     @OneToMany
     private List<Comment> comment;
-    @JsonManagedReference(value = "topic-favorite")
-    @OneToMany
-    private Set<Favorite> favorite;
     @ManyToMany(cascade = { CascadeType.MERGE })
     private Set<Tag> tags;
 
@@ -100,14 +95,6 @@ public class Topic {
 
     public void setTags(Set<Tag> tags) {
         this.tags = tags;
-    }
-
-    public Set<Favorite> getFavoriteTopic() {
-        return favorite;
-    }
-
-    public void setFavoriteTopic(Set<Favorite> favorite) {
-        this.favorite = favorite;
     }
 
     @Override
