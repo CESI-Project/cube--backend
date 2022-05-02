@@ -24,9 +24,15 @@ public class TopicController {
     }
 
     @CrossOrigin
-    @GetMapping
-    public List<Topic> getTopics() {
-        return topicService.getTopics();
+    @GetMapping("/notConnected")
+    public List<Topic> getTopicsNotConnected() {
+        return topicService.getTopicsNotConnected();
+    }
+
+    @CrossOrigin
+    @GetMapping("user/{id}")
+    public List<Topic> getTopics(@Valid @PathVariable Integer id) {
+        return topicService.getTopics(id);
     }
 
     @CrossOrigin

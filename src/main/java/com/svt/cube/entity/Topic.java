@@ -15,6 +15,9 @@ public class Topic {
     private String text;
     private String picture;
     private Integer view;
+    private Integer userId;
+    @Column(columnDefinition = "varchar(10) default 'Publiques'")
+    private String type;
     @Column(name = "is_validated", columnDefinition = "boolean default false")
     private Boolean isValidated = false;
     @ManyToMany(cascade = { CascadeType.MERGE })
@@ -23,11 +26,12 @@ public class Topic {
     public Topic() {
     }
 
-    public Topic(String title, String text, String picture, Integer view) {
+    public Topic(String title, String text, String picture, Integer view, Integer userId) {
         this.title = title;
         this.text = text;
         this.picture = picture;
         this.view = view;
+        this.userId = userId;
     }
 
     public Integer getId() {
@@ -62,8 +66,24 @@ public class Topic {
         this.picture = picture;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public Integer getView() {
         return view;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public void setView(Integer view) {
