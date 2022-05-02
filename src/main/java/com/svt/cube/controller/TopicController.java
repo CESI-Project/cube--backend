@@ -2,7 +2,6 @@ package com.svt.cube.controller;
 
 import com.svt.cube.entity.Tag;
 import com.svt.cube.entity.Topic;
-import com.svt.cube.entity.View;
 import com.svt.cube.payload.response.MessageResponse;
 import com.svt.cube.service.TopicService;
 import com.svt.cube.service.ViewService;
@@ -20,12 +19,10 @@ import java.util.Set;
 public class TopicController {
 
     private final TopicService topicService;
-    private final ViewService viewService;
 
     @Autowired
     public TopicController(TopicService topicService, ViewService viewService) {
         this.topicService = topicService;
-        this.viewService = viewService;
     }
 
     @CrossOrigin
@@ -42,8 +39,7 @@ public class TopicController {
 
     @CrossOrigin
     @GetMapping("/{id}")
-    public Topic getTopicById(@PathVariable Integer id, @RequestBody View view) {
-        viewService.createViews(view);
+    public Topic getTopicById(@PathVariable Integer id) {
         return topicService.getTopicById(id);
     }
 
