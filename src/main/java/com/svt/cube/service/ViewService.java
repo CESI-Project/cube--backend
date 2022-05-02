@@ -23,12 +23,12 @@ public class ViewService {
         Integer topicId = view.getTopicId();
         Integer userId = view.getUserId();
         View verifView = viewRepository.findOneBytopicIdAndUserId(topicId, userId);
-        if (verifView.getTopicId() == topicId && verifView.getUserId() == userId) {
+        Topic topic = topicRepository.findById(topicId).get();
+        if (verifView.getTopicId() == topicId && userId != null && verifView.getUserId() == userId) {
             return;
         }
-        View newView = view;
-        viewRepository.save(newView);
-        Topic topic = topicRepository.findById(topicId).get();
+
+        viewRepository.save(view);
         topic.setView(this.getCountViews(topicId));
         topicRepository.save(topic);
     }

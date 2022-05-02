@@ -10,7 +10,7 @@ public class View {
     private Integer id;
     @Column(nullable = false, length = 3)
     private Integer topicId;
-    @Column(nullable = false, length = 3)
+    @Column(length = 3)
     private Integer userId;
 
     public View(Integer topicId, Integer userId) {
