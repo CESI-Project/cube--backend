@@ -6,6 +6,7 @@ import com.svt.cube.payload.response.MessageResponse;
 import com.svt.cube.service.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.http.ResponseEntity;
 import javax.validation.Valid;
 
@@ -43,8 +44,8 @@ public class TopicController {
 
     @CrossOrigin
     @PostMapping
-    public ResponseEntity<?> createTopic(@Valid @RequestBody Topic topic) {
-        topicService.createTopic(topic);
+    public ResponseEntity<?> createTopic(@Valid @RequestBody Topic topic, @RequestParam("file") MultipartFile file) {
+        topicService.createTopic(topic, file);
         return ResponseEntity.ok(new MessageResponse("Topic registered successfully!"));
     }
 

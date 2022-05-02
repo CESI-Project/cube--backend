@@ -5,6 +5,7 @@ import com.svt.cube.entity.Topic;
 import com.svt.cube.repository.TopicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Set;
@@ -13,10 +14,12 @@ import java.util.Set;
 public class TopicService {
 
     private final TopicRepository topicRepository;
+    private final FilesStorageService storageService;
 
     @Autowired
-    public TopicService(TopicRepository topicRepository) {
+    public TopicService(TopicRepository topicRepository, FilesStorageService storageService) {
         this.topicRepository = topicRepository;
+        this.storageService = storageService;
     }
 
     public List<Topic> getTopics() {
@@ -39,8 +42,12 @@ public class TopicService {
         topicRepository.save(topic);
     }
 
-    public Topic createTopic(Topic topic) {
-        return topicRepository.save(topic);
+    public Topic createTopic(Topic topic, MultipartFile file) {
+        Topic newTopic = topicRepository.save(topic);
+        String nameFile = "Topic_" + newTopic.getId().toString() + "_" + file.getOriginalFilename();
+        storageService.saveTopic(file, nameFile);
+        this.addPicturePath(newTopic.getId(), nameFile);
+        return newTopic;
     }
 
     public Topic modifyTopic(Topic topic) {
