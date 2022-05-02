@@ -42,7 +42,7 @@ public class TopicController {
 
     @CrossOrigin
     @GetMapping("/{id}")
-    public Topic getTopicById(@PathVariable Integer id, View view) {
+    public Topic getTopicById(@PathVariable Integer id, @RequestBody View view) {
         viewService.createViews(view);
         return topicService.getTopicById(id);
     }
