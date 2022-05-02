@@ -3,7 +3,6 @@ package com.svt.cube.entity;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.List;
 import java.util.HashSet;
 import java.util.Set;
 import javax.validation.constraints.Email;
@@ -25,8 +24,6 @@ public class User {
     @Column(nullable = false, length = 64)
     private String password;
 
-    @OneToMany
-    private List<Comment> comment;
     @Transient
     private Integer age;
     @ManyToMany(fetch = FetchType.LAZY)

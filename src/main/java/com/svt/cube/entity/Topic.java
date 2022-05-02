@@ -3,7 +3,6 @@ package com.svt.cube.entity;
 import java.util.Set;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table
@@ -18,8 +17,6 @@ public class Topic {
     private Integer view;
     @Column(name = "is_validated", columnDefinition = "boolean default false")
     private Boolean isValidated = false;
-    @OneToMany
-    private List<Comment> comment;
     @ManyToMany(cascade = { CascadeType.MERGE })
     private Set<Tag> tags;
 
@@ -81,14 +78,6 @@ public class Topic {
         this.isValidated = isValidated;
     }
 
-    public List<Comment> getComment() {
-        return comment;
-    }
-
-    public void setComment(List<Comment> comment) {
-        this.comment = comment;
-    }
-
     public Set<Tag> getTags() {
         return tags;
     }
@@ -105,7 +94,6 @@ public class Topic {
                 ", text='" + text + '\'' +
                 ", picture='" + picture + '\'' +
                 ", view=" + view +
-                ", comment=" + comment +
                 '}';
     }
 }
