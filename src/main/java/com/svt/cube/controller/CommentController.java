@@ -36,7 +36,7 @@ public class CommentController {
     @DeleteMapping("/{id}")
     // @PreAuthorize("hasRole('ROLE_MODE') or hasRole('ROLE_ADMIN') or
     // hasRole('ROLE_SUPERADMIN')")
-    public void deleteTag(@PathVariable Integer id) {
-        commentRepository.deleteById(id);
+    public void deleteTag(@PathVariable Integer id, @RequestParam Long userId) {
+        commentService.deleteById(id, userId);
     }
 }
