@@ -20,26 +20,45 @@ import com.svt.cube.entity.FileInfo;
 import com.svt.cube.payload.response.MessageResponse;
 import com.svt.cube.service.FilesStorageService;
 import com.svt.cube.service.TopicService;
+import com.svt.cube.service.UserService;
 
 @Controller
 @RequestMapping(path = "api/v1/filesController")
 public class FilesController {
     private final FilesStorageService storageService;
     private final TopicService topicService;
+    private final UserService userService;
 
     @Autowired
-    public FilesController(FilesStorageService storageService, TopicService topicService) {
+    public FilesController(FilesStorageService storageService, TopicService topicService, UserService userService) {
         this.storageService = storageService;
         this.topicService = topicService;
+        this.userService = userService;
     }
 
     @PostMapping("/{id}/upload")
     public ResponseEntity<MessageResponse> uploadFile(@PathVariable Integer id,
             @RequestParam("file") MultipartFile file) {
         String message = "";
-        String nameFile = id.toString() + "_" + file.getOriginalFilename();
+        String nameFile = "Topic_" + id.toString() + "_" + file.getOriginalFilename();
         try {
             topicService.addPicturePath(id, nameFile);
+            storageService.saveTopic(file, nameFile);
+            message = "Uploaded the file successfully: " + file.getOriginalFilename();
+            return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse(message));
+        } catch (Exception e) {
+            message = "Could not upload the file: " + file.getOriginalFilename() + "!";
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new MessageResponse(message));
+        }
+    }
+
+    @PostMapping("user/{id}/upload")
+    public ResponseEntity<MessageResponse> uploadFileUser(@PathVariable Long id,
+            @RequestParam("file") MultipartFile file) {
+        String message = "";
+        String nameFile = "User_" + id.toString() + "_" + file.getOriginalFilename();
+        try {
+            userService.addPicturePath(id, nameFile);
             storageService.saveTopic(file, nameFile);
             message = "Uploaded the file successfully: " + file.getOriginalFilename();
             return ResponseEntity.status(HttpStatus.OK).body(new MessageResponse(message));
