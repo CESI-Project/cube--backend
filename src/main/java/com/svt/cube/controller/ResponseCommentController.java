@@ -25,7 +25,7 @@ public class ResponseCommentController {
     }
 
     @CrossOrigin
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     public List<ResponseComment> getResponseComments(@PathVariable Integer id) {
         return responseCommentService.getResponseComments(id);
     }
