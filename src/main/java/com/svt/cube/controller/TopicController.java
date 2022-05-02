@@ -2,8 +2,11 @@ package com.svt.cube.controller;
 
 import com.svt.cube.entity.Tag;
 import com.svt.cube.entity.Topic;
+import com.svt.cube.entity.View;
 import com.svt.cube.payload.response.MessageResponse;
 import com.svt.cube.service.TopicService;
+import com.svt.cube.service.ViewService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
@@ -17,10 +20,12 @@ import java.util.Set;
 public class TopicController {
 
     private final TopicService topicService;
+    private final ViewService viewService;
 
     @Autowired
-    public TopicController(TopicService topicService) {
+    public TopicController(TopicService topicService, ViewService viewService) {
         this.topicService = topicService;
+        this.viewService = viewService;
     }
 
     @CrossOrigin
@@ -37,7 +42,8 @@ public class TopicController {
 
     @CrossOrigin
     @GetMapping("/{id}")
-    public Topic getTopicById(@PathVariable Integer id) {
+    public Topic getTopicById(@PathVariable Integer id, View view) {
+        viewService.createViews(view);
         return topicService.getTopicById(id);
     }
 
