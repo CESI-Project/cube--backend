@@ -11,4 +11,5 @@ public interface ViewRepository extends JpaRepository<View, Integer> {
 
     Integer countByTopicId(Integer topicId);
 
+    Integer countByUserId(Integer userId);
 }

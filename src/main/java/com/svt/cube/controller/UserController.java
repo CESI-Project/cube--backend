@@ -48,16 +48,24 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
+    // All users for admin
     @CrossOrigin
-    @GetMapping
-    public List<User> getUsers() {
-        return userService.getUsers();
+    @GetMapping("admin/{id}")
+    public List<User> getUsers(@PathVariable Long id) {
+        return userService.getUsers(id);
     }
 
     @CrossOrigin
     @GetMapping("/{id}")
     public Optional<User> getUser(@PathVariable Long id) {
         return userService.getUser(id);
+    }
+
+    // Stats Admin
+    @CrossOrigin
+    @GetMapping("/admin/count")
+    public Integer getTotalUsers() {
+        return userService.getTotalUsers();
     }
 
     @CrossOrigin

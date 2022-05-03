@@ -30,6 +30,10 @@ public class TopicService {
         return topicRepository.findAllByTagsIn(tags);
     }
 
+    public List<Topic> getAllTopics() {
+        return topicRepository.findAll();
+    }
+
     public Topic getTopicById(Integer id) {
         return topicRepository.findById(id).get();
     }
@@ -72,5 +76,9 @@ public class TopicService {
         Topic topicToValidated = topicRepository.findById(topicId).get();
         topicToValidated.setIsValidated(false);
         topicRepository.save(topicToValidated);
+    }
+
+    public Integer getTotalTopics() {
+        return (int) topicRepository.count();
     }
 }

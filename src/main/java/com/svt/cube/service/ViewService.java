@@ -36,4 +36,12 @@ public class ViewService {
     public Integer getCountViews(Integer id) {
         return viewRepository.countByTopicId(id);
     }
+
+    public Integer getMyCountView(Integer userId) {
+        return viewRepository.countByUserId(userId);
+    }
+
+    public Integer getTotalViews() {
+        return (int) viewRepository.count();
+    }
 }

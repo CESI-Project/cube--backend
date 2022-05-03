@@ -38,6 +38,20 @@ public class TopicController {
         return topicService.getTopicsByTags(tags);
     }
 
+    // All for admin
+    @CrossOrigin
+    @GetMapping("/admin")
+    public List<Topic> getAllTopics() {
+        return topicService.getAllTopics();
+    }
+
+    // Stats Admin
+    @CrossOrigin
+    @GetMapping("/admin/count")
+    public Integer getTotalTopics() {
+        return topicService.getTotalTopics();
+    }
+
     @CrossOrigin
     @GetMapping("/{id}")
     public Topic getTopicById(@PathVariable Integer id) {
