@@ -5,6 +5,7 @@ import com.svt.cube.payload.response.MessageResponse;
 import com.svt.cube.service.FavoriteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -22,16 +23,14 @@ public class FavoriteController {
 
     @CrossOrigin
     @GetMapping("{id}")
-    // @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_MODERATOR') or
-    // hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_MODE') or hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
     public List<Favorite> getAllFavorites(@Valid @PathVariable Long id) {
         return favoriteService.getAllFavoritesUser(id);
     }
 
     @CrossOrigin
     @GetMapping("/isFavorite")
-    // @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_MODERATOR') or
-    // hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_MODE') or hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
     public Boolean getIsFavorite(@Valid @RequestBody Favorite favorite) {
         Favorite getFavorite = favoriteService.getIsFavorite(favorite);
         if (getFavorite != null) {
@@ -42,15 +41,17 @@ public class FavoriteController {
 
     @CrossOrigin
     @PostMapping
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_MODE') or hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
     public ResponseEntity<?> createFavorite(@Valid @RequestBody Favorite favorite) {
         favoriteService.createFavorite(favorite);
-        return ResponseEntity.ok(new MessageResponse("Topic registered successfully!"));
+        return ResponseEntity.ok(new MessageResponse("Favorite registered successfully!"));
     }
 
     @CrossOrigin
     @DeleteMapping("/{favoriteId}")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_MODE') or hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
     public ResponseEntity<?> deleteFavorite(@Valid @PathVariable Integer favoriteId) {
         favoriteService.deleteFavorite(favoriteId);
-        return ResponseEntity.ok(new MessageResponse("Topic deleted successfully!"));
+        return ResponseEntity.ok(new MessageResponse("Favorite deleted successfully!"));
     }
 }

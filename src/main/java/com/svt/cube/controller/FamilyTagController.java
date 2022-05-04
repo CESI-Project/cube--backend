@@ -3,6 +3,7 @@ package com.svt.cube.controller;
 import com.svt.cube.entity.FamilyTag;
 import com.svt.cube.service.FamilyTagService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,29 +20,26 @@ public class FamilyTagController {
 
     @CrossOrigin
     @GetMapping
-    // @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_MODERATOR') or
-    // hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
     public List<FamilyTag> getAllFamilyTags() {
         return familyTagService.getAllFamilyTags();
     }
 
     @CrossOrigin
     @PostMapping
-    // @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
     public FamilyTag createFamilyTag(@RequestBody FamilyTag familyTag) {
         return familyTagService.createFamilyTag(familyTag);
     }
 
     @CrossOrigin
-    @DeleteMapping("/{id}")
-    // @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
     public void deleteFamilyTag(@PathVariable Integer id) {
         familyTagService.deleteFamilyTag(id);
     }
 
     @CrossOrigin
     @PutMapping("/{id}")
-    // @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
     public void modifyFamilyTag(@PathVariable Integer id, @RequestBody FamilyTag familyTag) {
         familyTagService.modifyFamilyTag(familyTag);
     }

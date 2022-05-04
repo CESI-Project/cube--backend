@@ -7,6 +7,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,6 +38,7 @@ public class FilesController {
     }
 
     @PostMapping("/{id}/upload")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_MODE') or hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
     public ResponseEntity<MessageResponse> uploadFile(@PathVariable Integer id,
             @RequestParam("file") MultipartFile file) {
         String message = "";
@@ -53,6 +55,7 @@ public class FilesController {
     }
 
     @PostMapping("user/{id}/upload")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_MODE') or hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
     public ResponseEntity<MessageResponse> uploadFileUser(@PathVariable Long id,
             @RequestParam("file") MultipartFile file) {
         String message = "";

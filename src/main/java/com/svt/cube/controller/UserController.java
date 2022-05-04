@@ -13,6 +13,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -50,6 +51,7 @@ public class UserController {
 
     @CrossOrigin
     @GetMapping
+    @PreAuthorize("hasRole('ROLE_MODE') or hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
     public List<User> getUsers() {
         return userService.getUsers();
     }
@@ -138,6 +140,7 @@ public class UserController {
 
     @CrossOrigin
     @PutMapping("/{id}/modifyPassword")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_MODE') or hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
     public ResponseEntity<?> updatePassword(@Valid @PathVariable Long id, @RequestBody String newPassword) {
         String password = encoder.encode(newPassword);
         userService.updatePassword(id, password);
@@ -146,6 +149,7 @@ public class UserController {
 
     @CrossOrigin
     @PutMapping("/{id}/modifyProfil")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_MODE') or hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
     public ResponseEntity<?> udpdateProfile(@Valid @RequestBody User newInfoUser) {
         userService.updateProfile(newInfoUser);
         return ResponseEntity.ok(new MessageResponse("Profil User succesfully updated"));
@@ -153,6 +157,7 @@ public class UserController {
 
     @CrossOrigin
     @PutMapping("/{id}/activation")
+    @PreAuthorize("hasRole('ROLE_MODE') or hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
     public ResponseEntity<?> activatedProfile(@Valid @PathVariable Long id) {
         userService.activatedProfile(id);
         return ResponseEntity.ok(new MessageResponse("Profil User reactivated succesfully"));
@@ -160,6 +165,7 @@ public class UserController {
 
     @CrossOrigin
     @PutMapping("/{id}/desactivation")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_MODE') or hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
     public ResponseEntity<?> desactivatedProfile(@Valid @PathVariable Long id) {
         userService.desactivatedProfile(id);
         return ResponseEntity.ok(new MessageResponse("Profil User desactivated succesfully updated"));

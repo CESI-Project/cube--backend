@@ -8,8 +8,9 @@ import com.svt.cube.service.ViewService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+
 import javax.validation.Valid;
 
 import java.util.List;
@@ -59,6 +60,7 @@ public class TopicController {
 
     @CrossOrigin
     @PostMapping
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_MODE') or hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
     public ResponseEntity<?> createTopic(@Valid @RequestBody Topic topic) {
         topicService.createTopic(topic);
         return ResponseEntity.ok(new MessageResponse("Topic registeredsuccessfully!"));
@@ -66,6 +68,7 @@ public class TopicController {
 
     @CrossOrigin
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_MODE') or hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
     public ResponseEntity<?> modifyTopic(@Valid @PathVariable Integer id, @RequestBody Topic topic) {
         topicService.modifyTopic(topic);
         return ResponseEntity.ok(new MessageResponse("Topic modified successfully!"));
@@ -73,6 +76,7 @@ public class TopicController {
 
     @CrossOrigin
     @PutMapping("/{id}/validation")
+    @PreAuthorize("hasRole('ROLE_MODE') or hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
     public ResponseEntity<?> validationTopic(@Valid @PathVariable Integer id) {
         topicService.validationTopic(id);
         return ResponseEntity.ok(new MessageResponse("Topic is validated !"));
@@ -80,6 +84,7 @@ public class TopicController {
 
     @CrossOrigin
     @PutMapping("/{id}/unvalidation")
+    @PreAuthorize("hasRole('ROLE_MODE') or hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
     public ResponseEntity<?> unvalidationTopic(@Valid @PathVariable Integer id) {
         topicService.unvalidationTopic(id);
         return ResponseEntity.ok(new MessageResponse("Topic is unvalidated !"));
@@ -87,6 +92,7 @@ public class TopicController {
 
     @CrossOrigin
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_MODE') or hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
     public ResponseEntity<?> deleteTopic(@Valid @PathVariable Integer id) {
         topicService.deleteTopic(id);
         return ResponseEntity.ok(new MessageResponse("Topic is deleted !"));
