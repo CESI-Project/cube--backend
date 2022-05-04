@@ -46,4 +46,10 @@ public class ViewController {
     public Integer getTotalViews() {
         return viewService.getTotalViews();
     }
+
+    @CrossOrigin
+    @GetMapping("/admin/countNotUsers")
+    public Integer getTotalViewsNotUsers() {
+        return viewService.getTotalViewsNotUsers();
+    }
 }

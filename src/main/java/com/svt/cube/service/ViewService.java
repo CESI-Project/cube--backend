@@ -44,4 +44,8 @@ public class ViewService {
     public Integer getTotalViews() {
         return (int) viewRepository.count();
     }
+
+    public Integer getTotalViewsNotUsers() {
+        return (int) viewRepository.countNotUsers();
+    }
 }
