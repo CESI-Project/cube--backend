@@ -10,4 +10,6 @@ import java.util.List;
 public interface ResponseCommentRepository extends JpaRepository<ResponseComment, Integer> {
 
     List<ResponseComment> findByCommentId(Integer commentId);
+
+    void deleteByCommentId(Integer commentId);
 }
