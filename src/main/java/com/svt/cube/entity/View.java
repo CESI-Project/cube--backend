@@ -8,10 +8,13 @@ public class View {
     @SequenceGenerator(name = "favorite_sequence", sequenceName = "favorite_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "favorite_sequence")
     private Integer id;
-    @Column(nullable = false, length = 3)
+    @Column(nullable = true, length = 3)
     private Integer topicId;
     @Column(length = 3)
     private Integer userId;
+
+    public View() {
+    }
 
     public View(Integer topicId, Integer userId) {
         this.topicId = topicId;
