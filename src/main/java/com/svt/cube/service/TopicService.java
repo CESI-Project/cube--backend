@@ -10,6 +10,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 import java.util.Set;
 
+import javax.validation.Valid;
+
 @Service
 public class TopicService {
 
@@ -72,5 +74,9 @@ public class TopicService {
         Topic topicToValidated = topicRepository.findById(topicId).get();
         topicToValidated.setIsValidated(false);
         topicRepository.save(topicToValidated);
+    }
+
+    public void deleteTopic(@Valid Integer topicId) {
+        topicRepository.deleteById(topicId);
     }
 }

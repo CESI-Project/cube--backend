@@ -75,4 +75,11 @@ public class TopicController {
         topicService.unvalidationTopic(id);
         return ResponseEntity.ok(new MessageResponse("Topic is unvalidated !"));
     }
+
+    @CrossOrigin
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteTopic(@Valid @PathVariable Integer id) {
+        topicService.deleteTopic(id);
+        return ResponseEntity.ok(new MessageResponse("Topic is deleted !"));
+    }
 }

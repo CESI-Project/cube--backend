@@ -3,6 +3,8 @@ package com.svt.cube.controller;
 import com.svt.cube.entity.Comment;
 import com.svt.cube.repository.CommentRepository;
 import com.svt.cube.service.CommentService;
+
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,14 +30,14 @@ public class CommentController {
 
     @CrossOrigin
     @PostMapping
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_MODE') or hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
     public void pullComment(@RequestBody Comment comment) {
         commentRepository.save(comment);
     }
 
     @CrossOrigin
     @DeleteMapping("/{id}")
-    // @PreAuthorize("hasRole('ROLE_MODE') or hasRole('ROLE_ADMIN') or
-    // hasRole('ROLE_SUPERADMIN')")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_MODE') or hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
     public void deleteTag(@PathVariable Integer id) {
         commentRepository.deleteById(id);
     }
