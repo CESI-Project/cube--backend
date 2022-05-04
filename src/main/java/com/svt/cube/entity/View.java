@@ -13,6 +13,9 @@ public class View {
     @Column(length = 3)
     private Integer userId;
 
+    public View() {
+    }
+
     public View(Integer topicId, Integer userId) {
         this.topicId = topicId;
         this.userId = userId;
