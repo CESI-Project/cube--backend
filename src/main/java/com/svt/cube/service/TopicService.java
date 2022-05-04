@@ -73,4 +73,12 @@ public class TopicService {
         topicToValidated.setIsValidated(false);
         topicRepository.save(topicToValidated);
     }
+
+    public List<Topic> getTopicValidated() {
+        return topicRepository.findAllValidated();
+    }
+
+    public List<Topic> getTopicNotValidated() {
+        return topicRepository.findAllNotValidated();
+    }
 }
