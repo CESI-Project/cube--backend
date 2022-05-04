@@ -38,10 +38,8 @@ public class CommentController {
 
     @CrossOrigin
     @DeleteMapping("/{id}")
-    // @PreAuthorize("hasRole('ROLE_MODE') or hasRole('ROLE_ADMIN') or
-    // hasRole('ROLE_SUPERADMIN')")
-    public void deleteComment(@PathVariable Integer id) {
-        commentRepository.deleteById(id);
+    public void deleteComment(@PathVariable Integer id, @RequestParam Long userId) {
+        commentService.deleteById(id, userId);
         responseCommentRepository.deleteByCommentId(id);
     }
 }
