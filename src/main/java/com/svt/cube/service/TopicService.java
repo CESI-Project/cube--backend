@@ -17,11 +17,14 @@ public class TopicService {
 
     private final TopicRepository topicRepository;
     private final FilesStorageService storageService;
+    private final CommentService commentService;
 
     @Autowired
-    public TopicService(TopicRepository topicRepository, FilesStorageService storageService) {
+    public TopicService(TopicRepository topicRepository, FilesStorageService storageService,
+            CommentService commentService) {
         this.topicRepository = topicRepository;
         this.storageService = storageService;
+        this.commentService = commentService;
     }
 
     public List<Topic> getTopics() {
@@ -78,5 +81,6 @@ public class TopicService {
 
     public void deleteTopic(@Valid Integer topicId) {
         topicRepository.deleteById(topicId);
+        commentService.deleteByTopicId(topicId);
     }
 }
