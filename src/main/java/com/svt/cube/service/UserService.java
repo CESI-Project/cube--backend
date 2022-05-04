@@ -18,8 +18,8 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public List<User> getUsers() {
-        return userRepository.findAll();
+    public List<User> getUsers(Long userId) {
+        return userRepository.findAllWithoutMyUser(userId);
     }
 
     public void updatePassword(Long id, String newPassword) {
@@ -40,7 +40,23 @@ public class UserService {
         userRepository.save(newInfoUser);
     }
 
+    public void activatedProfile(Long userId) {
+        User user = userRepository.findById(userId).get();
+        user.setIsActivated(true);
+        userRepository.save(user);
+    }
+
+    public void desactivatedProfile(Long userId) {
+        User user = userRepository.findById(userId).get();
+        user.setIsActivated(false);
+        userRepository.save(user);
+    }
+
     public Optional<User> getUser(Long id) {
         return userRepository.findById(id);
+    }
+
+    public Integer getTotalUsers() {
+        return (int) userRepository.count();
     }
 }

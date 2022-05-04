@@ -4,6 +4,8 @@ import com.svt.cube.entity.Tag;
 import com.svt.cube.entity.Topic;
 import com.svt.cube.payload.response.MessageResponse;
 import com.svt.cube.service.TopicService;
+import com.svt.cube.service.ViewService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,7 +22,7 @@ public class TopicController {
     private final TopicService topicService;
 
     @Autowired
-    public TopicController(TopicService topicService) {
+    public TopicController(TopicService topicService, ViewService viewService) {
         this.topicService = topicService;
     }
 
@@ -36,21 +38,44 @@ public class TopicController {
         return topicService.getTopicsByTags(tags);
     }
 
+    // All for admin
+    @CrossOrigin
+    @GetMapping("/admin")
+    public List<Topic> getAllTopics() {
+        return topicService.getAllTopics();
+    }
+
+    // Stats Admin
+    @CrossOrigin
+    @GetMapping("/admin/count")
+    public Integer getTotalTopics() {
+        return topicService.getTotalTopics();
+    }
+
     @CrossOrigin
     @GetMapping("/{id}")
     public Topic getTopicById(@PathVariable Integer id) {
         return topicService.getTopicById(id);
     }
 
+    // @CrossOrigin
+    // @PostMapping
+    // public ResponseEntity<?> createTopic(@Valid @RequestBody Topic topic,
+    // @RequestParam("file") MultipartFile file) {
+    // if (file == null) {
+    // topicService.createTopic(topic);
+    // } else {
+    // topicService.createTopicWithPhoto(topic, file);
+    // }
+    // return ResponseEntity.ok(new MessageResponse("Topic registered
+    // successfully!"));
+    // }
+
     @CrossOrigin
     @PostMapping
-    public ResponseEntity<?> createTopic(@Valid @RequestBody Topic topic, @RequestParam("file") MultipartFile file) {
-        if (file == null) {
-            topicService.createTopic(topic);
-        } else {
-            topicService.createTopicWithPhoto(topic, file);
-        }
-        return ResponseEntity.ok(new MessageResponse("Topic registered successfully!"));
+    public ResponseEntity<?> createTopic(@Valid @RequestBody Topic topic) {
+        topicService.createTopic(topic);
+        return ResponseEntity.ok(new MessageResponse("Topic registeredsuccessfully!"));
     }
 
     @CrossOrigin

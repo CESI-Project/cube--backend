@@ -22,6 +22,7 @@ import com.svt.cube.entity.ERole;
 import com.svt.cube.entity.Role;
 import com.svt.cube.payload.request.LoginRequest;
 import com.svt.cube.payload.request.SignupRequest;
+import com.svt.cube.payload.request.SignupSpecialRequest;
 import com.svt.cube.payload.response.JwtResponse;
 import com.svt.cube.payload.response.MessageResponse;
 import com.svt.cube.security.jwt.JwtUtils;
@@ -48,10 +49,11 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
+    // All users for admin
     @CrossOrigin
-    @GetMapping
-    public List<User> getUsers() {
-        return userService.getUsers();
+    @GetMapping("admin/{id}")
+    public List<User> getUsers(@PathVariable Long id) {
+        return userService.getUsers(id);
     }
 
     @CrossOrigin
@@ -60,12 +62,22 @@ public class UserController {
         return userService.getUser(id);
     }
 
+    // Stats Admin
+    @CrossOrigin
+    @GetMapping("/admin/count")
+    public Integer getTotalUsers() {
+        return userService.getTotalUsers();
+    }
+
     @CrossOrigin
     @PostMapping("auth/log-in")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+        User user = userRepository.findByUserName(loginRequest.getUsername()).get();
+        if (user.getIsActivated() == false) {
+            return ResponseEntity.ok(new MessageResponse("User account desactivated!"));
+        }
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
 
@@ -134,6 +146,58 @@ public class UserController {
     }
 
     @CrossOrigin
+    @PostMapping("auth/admin/sign-up")
+    public ResponseEntity<?> registerSpecialUser(@Valid @RequestBody SignupSpecialRequest signUpSpecialRequest) {
+        if (userRepository.existsByUserName(signUpSpecialRequest.getUsername())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Username is already taken!"));
+        }
+        if (userRepository.existsByEmail(signUpSpecialRequest.getEmail())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Email is already in use!"));
+        }
+        // Create new user's special account
+        User user = new User(signUpSpecialRequest.getUsername(),
+                signUpSpecialRequest.getEmail(),
+                encoder.encode(signUpSpecialRequest.getPassword()));
+        Set<String> strRoles = signUpSpecialRequest.getRole();
+        Set<Role> roles = new HashSet<>();
+        if (strRoles == null) {
+            Role userRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
+                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+            roles.add(userRole);
+        } else {
+            strRoles.forEach(role -> {
+                switch (role) {
+                    case "superAdmin":
+                        Role superAdminRole = roleRepository.findByName(ERole.ROLE_SUPERADMIN)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(superAdminRole);
+                    case "admin":
+                        Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(adminRole);
+                        break;
+                    case "mode":
+                        Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(modRole);
+                        break;
+                    default:
+                        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(userRole);
+                }
+            });
+        }
+        user.setRoles(roles);
+        userRepository.save(user);
+        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+    }
+
+    @CrossOrigin
     @PutMapping("/{id}/modifyPassword")
     public ResponseEntity<?> updatePassword(@Valid @PathVariable Long id, @RequestBody String newPassword) {
         String password = encoder.encode(newPassword);
@@ -146,5 +210,19 @@ public class UserController {
     public ResponseEntity<?> udpdateProfile(@Valid @RequestBody User newInfoUser) {
         userService.updateProfile(newInfoUser);
         return ResponseEntity.ok(new MessageResponse("Profil User succesfully updated"));
+    }
+
+    @CrossOrigin
+    @PutMapping("/{id}/activation")
+    public ResponseEntity<?> activatedProfile(@Valid @PathVariable Long id) {
+        userService.activatedProfile(id);
+        return ResponseEntity.ok(new MessageResponse("Profil User reactivated succesfully"));
+    }
+
+    @CrossOrigin
+    @PutMapping("/{id}/desactivation")
+    public ResponseEntity<?> desactivatedProfile(@Valid @PathVariable Long id) {
+        userService.desactivatedProfile(id);
+        return ResponseEntity.ok(new MessageResponse("Profil User desactivated succesfully updated"));
     }
 }

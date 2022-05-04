@@ -8,6 +8,8 @@ INSERT INTO topic (id, text, title, view, picture) VALUES (1,'Je suis le test de
 INSERT INTO topic (id, text, title, view, picture) VALUES (2, 'Bonjour Blo, blobloblo oui blobloblo', 'Soupe le 14 Mars', 230,'http://localhost:8080/api/v1/filesController/files/soap.jpg' );
 INSERT INTO comment (id, text, created_at, topic_id, user_id) VALUES (1, 'je suis le premier commentaire', CAST('2022-03-15' AS DATE), 1, 1);
 INSERT INTO comment (id, text, created_at, topic_id, user_id) VALUES (2, 'je suis le second commentaire', CAST('2022-03-15' AS DATE), 2, 1);
+INSERT INTO response_comment (id, text, created_at, comment_id, user_id) VALUES (1, 'je suis la premiere reponse de commentaire', CAST('2022-03-15' AS DATE), 1, 1);
+INSERT INTO response_comment (id, text, created_at, comment_id, user_id) VALUES (2, 'je suis la seconde reponse de ce commentaire', CAST('2022-03-15' AS DATE), 1, 1);
 INSERT INTO family_tag (id, name_en, name_fr) VALUES (1, 'Relation', 'Relation');
 INSERT INTO family_tag (id, name_en, name_fr) VALUES (2, 'Health', 'Santé');
 INSERT INTO family_tag (id, name_en, name_fr) VALUES (3, 'Social security', 'sécurité sociale');
