@@ -78,6 +78,14 @@ public class TopicService {
         topicRepository.save(topicToValidated);
     }
 
+    public List<Topic> getTopicValidated() {
+        return topicRepository.findAllValidated();
+    }
+
+    public List<Topic> getTopicNotValidated() {
+        return topicRepository.findAllNotValidated();
+    }
+
     public Integer getTotalTopics() {
         return (int) topicRepository.count();
     }

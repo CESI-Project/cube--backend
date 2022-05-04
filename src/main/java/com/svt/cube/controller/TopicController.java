@@ -58,6 +58,18 @@ public class TopicController {
         return topicService.getTopicById(id);
     }
 
+    @CrossOrigin
+    @GetMapping("/notValidated")
+    public List<Topic> getTopicNotValidated() {
+        return topicService.getTopicNotValidated();
+    }
+
+    @CrossOrigin
+    @GetMapping("/validated")
+    public List<Topic> getTopicValidated() {
+        return topicService.getTopicValidated();
+    }
+
     // @CrossOrigin
     // @PostMapping
     // public ResponseEntity<?> createTopic(@Valid @RequestBody Topic topic,
