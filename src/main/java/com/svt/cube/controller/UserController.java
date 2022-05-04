@@ -150,14 +150,14 @@ public class UserController {
                     .badRequest()
                     .body(new MessageResponse("Error: Email is already in use!"));
         }
-        // Create new user's account
+        // Create new user's special account
         User user = new User(signUpSpecialRequest.getUsername(),
                 signUpSpecialRequest.getEmail(),
                 encoder.encode(signUpSpecialRequest.getPassword()));
         Set<String> strRoles = signUpSpecialRequest.getRole();
         Set<Role> roles = new HashSet<>();
         if (strRoles == null) {
-            Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+            Role userRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
             roles.add(userRole);
         } else {
