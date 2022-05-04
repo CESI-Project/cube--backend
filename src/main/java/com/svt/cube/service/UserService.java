@@ -18,8 +18,8 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public List<User> getUsers() {
-        return userRepository.findAll();
+    public List<User> getUsers(Long userId) {
+        return userRepository.findAllWithoutMyUser(userId);
     }
 
     public void updatePassword(Long id, String newPassword) {
@@ -54,5 +54,9 @@ public class UserService {
 
     public Optional<User> getUser(Long id) {
         return userRepository.findById(id);
+    }
+
+    public Integer getTotalUsers() {
+        return (int) userRepository.count();
     }
 }
