@@ -44,15 +44,24 @@ public class TopicController {
         return topicService.getTopicById(id);
     }
 
+    // @CrossOrigin
+    // @PostMapping
+    // public ResponseEntity<?> createTopic(@Valid @RequestBody Topic topic,
+    // @RequestParam("file") MultipartFile file) {
+    // if (file == null) {
+    // topicService.createTopic(topic);
+    // } else {
+    // topicService.createTopicWithPhoto(topic, file);
+    // }
+    // return ResponseEntity.ok(new MessageResponse("Topic registered
+    // successfully!"));
+    // }
+
     @CrossOrigin
     @PostMapping
-    public ResponseEntity<?> createTopic(@Valid @RequestBody Topic topic, @RequestParam("file") MultipartFile file) {
-        if (file == null) {
-            topicService.createTopic(topic);
-        } else {
-            topicService.createTopicWithPhoto(topic, file);
-        }
-        return ResponseEntity.ok(new MessageResponse("Topic registered successfully!"));
+    public ResponseEntity<?> createTopic(@Valid @RequestBody Topic topic) {
+        topicService.createTopic(topic);
+        return ResponseEntity.ok(new MessageResponse("Topic registeredsuccessfully!"));
     }
 
     @CrossOrigin
