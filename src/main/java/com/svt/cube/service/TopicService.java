@@ -10,6 +10,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 import java.util.Set;
 
+import javax.validation.Valid;
+
 @Service
 public class TopicService {
 
@@ -88,5 +90,9 @@ public class TopicService {
 
     public Integer getTotalTopics() {
         return (int) topicRepository.count();
+    }
+
+    public List<Topic> getMyTopics(Integer userId) {
+        return topicRepository.findAllByUserId(userId);
     }
 }

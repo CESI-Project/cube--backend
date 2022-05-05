@@ -15,6 +15,7 @@ public class Topic {
     private String text;
     private String picture;
     private Integer view;
+    private Integer userId;
     @Column(name = "is_validated", columnDefinition = "boolean default false")
     private Boolean isValidated = false;
     @ManyToMany(cascade = { CascadeType.MERGE })
@@ -68,6 +69,14 @@ public class Topic {
 
     public void setView(Integer view) {
         this.view = view;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public Boolean getIsValidated() {
