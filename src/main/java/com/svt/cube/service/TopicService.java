@@ -22,7 +22,10 @@ public class TopicService {
         this.storageService = storageService;
     }
 
-    public List<Topic> getTopics() {
+    public List<Topic> getTopics(String keyword) {
+        if (keyword != null) {
+            return topicRepository.findByTitleContainingIgnoreCase(keyword);
+        }
         return topicRepository.findAll();
     }
 
