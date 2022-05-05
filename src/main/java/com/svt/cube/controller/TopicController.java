@@ -8,7 +8,7 @@ import com.svt.cube.service.ViewService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+// import org.springframework.web.multipart.MultipartFile;
 import org.springframework.http.ResponseEntity;
 import javax.validation.Valid;
 
@@ -28,8 +28,8 @@ public class TopicController {
 
     @CrossOrigin
     @GetMapping
-    public List<Topic> getTopics() {
-        return topicService.getTopics();
+    public List<Topic> getTopics(@RequestParam String keyword) {
+        return topicService.getTopics(keyword);
     }
 
     @CrossOrigin

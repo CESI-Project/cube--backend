@@ -18,4 +18,6 @@ public interface TopicRepository extends JpaRepository<Topic, Integer> {
 
     @Query("SELECT t from Topic t where isValidated = false")
     List<Topic> findAllNotValidated();
+
+    List<Topic> findByTitleContainingIgnoreCase(String keyword);
 }
