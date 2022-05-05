@@ -53,6 +53,12 @@ public class TopicController {
     }
 
     @CrossOrigin
+    @GetMapping("/user/{id}/myTopic")
+    public List<Topic> getTotalTopics(@Valid @PathVariable Integer id) {
+        return topicService.getMyTopics(id);
+    }
+
+    @CrossOrigin
     @GetMapping("/{id}")
     public Topic getTopicById(@PathVariable Integer id) {
         return topicService.getTopicById(id);
