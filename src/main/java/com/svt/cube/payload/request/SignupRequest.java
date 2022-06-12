@@ -1,64 +1,65 @@
 package com.svt.cube.payload.request;
 
-import java.time.LocalDate;
 import java.util.Set;
-
-import javax.validation.constraints.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 public class SignupRequest {
-    @NotBlank
-    @Size(min = 3, max = 20)
-    private String username;
 
-    @NotBlank
-    @Size(max = 50)
-    @Email
-    private String email;
-    private LocalDate birthDate;
+  @NotBlank
+  @Size(min = 3, max = 20)
+  private String username;
 
-    private Set<String> role;
+  @NotBlank
+  @Size(max = 50)
+  @Email
+  private String email;
+  private Integer age;
 
-    @NotBlank
-    @Size(min = 6, max = 40)
-    private String password;
+  private Set<String> role;
 
-    public String getUsername() {
-        return username;
-    }
+  @NotBlank
+  @Size(min = 6, max = 40)
+  private String password;
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+  public String getUsername() {
+    return username;
+  }
 
-    public String getEmail() {
-        return email;
-    }
+  public void setUsername(String username) {
+    this.username = username;
+  }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+  public String getEmail() {
+    return email;
+  }
 
-    public LocalDate getBirthDate() {
-        return birthDate;
-    }
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
-    }
+  public String getPassword() {
+    return password;
+  }
 
-    public String getPassword() {
-        return password;
-    }
+  public void setPassword(String password) {
+    this.password = password;
+  }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+  public Set<String> getRole() {
+    return this.role;
+  }
 
-    public Set<String> getRole() {
-        return this.role;
-    }
+  public void setRole(Set<String> role) {
+    this.role = role;
+  }
 
-    public void setRole(Set<String> role) {
-        this.role = role;
-    }
+  public Integer getAge() {
+    return age;
+  }
+
+  public void setAge(Integer age) {
+    this.age = age;
+  }
 }

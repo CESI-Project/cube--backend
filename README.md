@@ -3,6 +3,7 @@
 ## Prerequisites
 
 You need to have :
+
 * Maven 3.x
 * Java 17.x
 * PostgreSQL 14.x
@@ -24,7 +25,8 @@ CREATE DATABASE cube;
 GRANT ALL PRIVILEGES ON DATABASE "cube" TO postgres;
 ```
 
-After running project 
+After running project
+
 ```SQL
 INSERT INTO roles(name) VALUES('ROLE_USER');
 INSERT INTO roles(name) VALUES('ROLE_MODERATOR');

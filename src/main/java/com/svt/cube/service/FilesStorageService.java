@@ -6,15 +6,16 @@ import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface FilesStorageService {
-    public void init();
 
-    public void save(MultipartFile file);
+  public void init();
 
-    public Resource load(String filename);
+  public void save(MultipartFile file);
 
-    public void deleteAll();
+  public Resource load(String filename);
 
-    public Stream<Path> loadAll();
+  public void deleteAll();
 
-    public void saveTopic(MultipartFile file, String namefile);
+  public Stream<Path> loadAll();
+
+  public void saveTopic(MultipartFile file, String namefile);
 }

@@ -1,30 +1,31 @@
 package com.svt.cube.entity;
 
 public class TopicUserWrapper {
-    User user;
-    Topic topic;
 
-    public TopicUserWrapper() {
-    }
+  User user;
+  Topic topic;
 
-    public TopicUserWrapper(User user, Topic topic) {
-        this.user = user;
-        this.topic = topic;
-    }
+  public TopicUserWrapper() {
+  }
 
-    public User getUser() {
-        return user;
-    }
+  public TopicUserWrapper(User user, Topic topic) {
+    this.user = user;
+    this.topic = topic;
+  }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+  public User getUser() {
+    return user;
+  }
 
-    public Topic getTopic() {
-        return topic;
-    }
+  public void setUser(User user) {
+    this.user = user;
+  }
 
-    public void setTopic(Topic topic) {
-        this.topic = topic;
-    }
+  public Topic getTopic() {
+    return topic;
+  }
+
+  public void setTopic(Topic topic) {
+    this.topic = topic;
+  }
 }

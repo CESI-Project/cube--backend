@@ -1,53 +1,65 @@
 package com.svt.cube.payload.request;
 
 import java.util.Set;
-
-import javax.validation.constraints.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 public class SignupSpecialRequest {
-    @NotBlank
-    @Size(min = 3, max = 20)
-    private String username;
 
-    @NotBlank
-    @Size(max = 50)
-    @Email
-    private String email;
-    private Set<String> role;
+  @NotBlank
+  @Size(min = 3, max = 20)
+  private String username;
 
-    @NotBlank
-    @Size(min = 6, max = 40)
-    private String password;
+  @NotBlank
+  @Size(max = 50)
+  @Email
+  private String email;
 
-    public String getUsername() {
-        return username;
-    }
+  private Integer age;
+  private Set<String> role;
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+  @NotBlank
+  @Size(min = 6, max = 40)
+  private String password;
 
-    public String getEmail() {
-        return email;
-    }
+  public String getUsername() {
+    return username;
+  }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+  public void setUsername(String username) {
+    this.username = username;
+  }
 
-    public String getPassword() {
-        return password;
-    }
+  public String getEmail() {
+    return email;
+  }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
-    public Set<String> getRole() {
-        return this.role;
-    }
+  public String getPassword() {
+    return password;
+  }
 
-    public void setRole(Set<String> role) {
-        this.role = role;
-    }
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
+  public Set<String> getRole() {
+    return this.role;
+  }
+
+  public void setRole(Set<String> role) {
+    this.role = role;
+  }
+
+  public Integer getAge() {
+    return age;
+  }
+
+  public void setAge(Integer age) {
+    this.age = age;
+  }
 }

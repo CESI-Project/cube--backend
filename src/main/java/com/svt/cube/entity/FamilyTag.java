@@ -1,46 +1,52 @@
 package com.svt.cube.entity;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 @Entity
 @Table
 public class FamilyTag {
-    @Id
-    @SequenceGenerator(name = "familyTag_sequence", sequenceName = "familyTag_sequence", initialValue = 6, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "familyTag_sequence")
-    private Integer id;
-    private String nameEn;
-    private String nameFr;
 
-    public FamilyTag() {
-    }
+  @Id
+  @SequenceGenerator(name = "familyTag_sequence", sequenceName = "familyTag_sequence", initialValue = 6, allocationSize = 1)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "familyTag_sequence")
+  private Integer id;
+  private String nameEn;
+  private String nameFr;
 
-    public FamilyTag(String nameEn, String nameFr) {
-        this.nameEn = nameEn;
-        this.nameFr = nameFr;
-    }
+  public FamilyTag() {
+  }
 
-    public Integer getId() {
-        return id;
-    }
+  public FamilyTag(String nameEn, String nameFr) {
+    this.nameEn = nameEn;
+    this.nameFr = nameFr;
+  }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+  public Integer getId() {
+    return id;
+  }
 
-    public String getNameEn() {
-        return nameEn;
-    }
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
-    public void setNameEn(String nameEn) {
-        this.nameEn = nameEn;
-    }
+  public String getNameEn() {
+    return nameEn;
+  }
 
-    public String getNameFr() {
-        return nameFr;
-    }
+  public void setNameEn(String nameEn) {
+    this.nameEn = nameEn;
+  }
 
-    public void setNameFr(String nameFr) {
-        this.nameFr = nameFr;
-    }
+  public String getNameFr() {
+    return nameFr;
+  }
+
+  public void setNameFr(String nameFr) {
+    this.nameFr = nameFr;
+  }
 }

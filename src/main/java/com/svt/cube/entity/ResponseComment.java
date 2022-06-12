@@ -1,82 +1,88 @@
 package com.svt.cube.entity;
 
+import java.sql.Timestamp;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import org.springframework.data.annotation.CreatedDate;
-
-import javax.persistence.*;
-import java.time.LocalDate;
 
 @Entity
 @Table
 public class ResponseComment {
-    @Id
-    @SequenceGenerator(name = "responsecomment_sequence", sequenceName = "responsecomment_sequence", initialValue = 3, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "responsecomment_sequence")
-    private Integer id;
-    private String text;
-    @CreatedDate
-    private LocalDate createdAt;
-    private Integer commentId;
 
-    private Integer userId;
+  @Id
+  @SequenceGenerator(name = "responsecomment_sequence", sequenceName = "responsecomment_sequence", initialValue = 3,
+        allocationSize = 1)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "responsecomment_sequence")
+  private Integer id;
+  private String text;
+  @CreatedDate
+  private Timestamp createdAt;
+  private Integer commentId;
 
-    public ResponseComment() {
-    }
+  private Integer userId;
 
-    public ResponseComment(String text, LocalDate createdAt, Integer commentId, Integer userId) {
-        this.text = text;
-        this.createdAt = createdAt;
-        this.commentId = commentId;
-        this.userId = userId;
-    }
+  public ResponseComment() {
+  }
 
-    public Integer getId() {
-        return id;
-    }
+  public ResponseComment(String text, Timestamp createdAt, Integer commentId, Integer userId) {
+    this.text = text;
+    this.createdAt = createdAt;
+    this.commentId = commentId;
+    this.userId = userId;
+  }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+  public Integer getId() {
+    return id;
+  }
 
-    public String getText() {
-        return text;
-    }
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
-    public void setText(String text) {
-        this.text = text;
-    }
+  public String getText() {
+    return text;
+  }
 
-    public LocalDate getCreatedAt() {
-        return createdAt;
-    }
+  public void setText(String text) {
+    this.text = text;
+  }
 
-    public void setCreatedAt(LocalDate createdAt) {
-        this.createdAt = createdAt;
-    }
+  public Timestamp getCreatedAt() {
+    return createdAt;
+  }
 
-    public Integer getCommentId() {
-        return commentId;
-    }
+  public void setCreatedAt(Timestamp createdAt) {
+    this.createdAt = createdAt;
+  }
 
-    public void setCommentId(Integer commentId) {
-        this.commentId = commentId;
-    }
+  public Integer getCommentId() {
+    return commentId;
+  }
 
-    public Integer getUserId() {
-        return userId;
-    }
+  public void setCommentId(Integer commentId) {
+    this.commentId = commentId;
+  }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
+  public Integer getUserId() {
+    return userId;
+  }
 
-    @Override
-    public String toString() {
-        return "Comment{" +
-                "id=" + id +
-                ", text='" + text + '\'' +
-                ", createdAt=" + createdAt +
-                ", commentId=" + commentId +
-                ", userId=" + userId +
-                '}';
-    }
+  public void setUserId(Integer userId) {
+    this.userId = userId;
+  }
+
+  @Override
+  public String toString() {
+    return "Comment{" +
+          "id=" + id +
+          ", text='" + text + '\'' +
+          ", createdAt=" + createdAt +
+          ", commentId=" + commentId +
+          ", userId=" + userId +
+          '}';
+  }
 }
