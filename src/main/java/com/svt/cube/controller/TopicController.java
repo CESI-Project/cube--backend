@@ -97,7 +97,7 @@ public class TopicController {
   @PostMapping
   public ResponseEntity<?> createTopic(@Valid @RequestBody Topic topic) {
     topicService.createTopic(topic);
-    return ResponseEntity.ok(new MessageResponse("Topic registeredsuccessfully!"));
+    return ResponseEntity.ok(new MessageResponse("Topic registered successfully!"));
   }
 
   @CrossOrigin
