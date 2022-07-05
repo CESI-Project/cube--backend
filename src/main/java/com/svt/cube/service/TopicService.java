@@ -130,4 +130,8 @@ public class TopicService {
   public List<Topic> getMyTopics(Integer userId) {
     return topicRepository.findAllByUserId(userId);
   }
+
+  public void deleteTag(Integer id) {
+    topicRepository.deleteById(id);
+  }
 }
