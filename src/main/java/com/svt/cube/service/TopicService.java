@@ -2,9 +2,13 @@ package com.svt.cube.service;
 
 import com.svt.cube.entity.Tag;
 import com.svt.cube.entity.Topic;
+import com.svt.cube.repository.TagRepository;
 import com.svt.cube.repository.TopicRepository;
+
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,12 +17,15 @@ import org.springframework.web.multipart.MultipartFile;
 public class TopicService {
 
   private final TopicRepository topicRepository;
+  private final TagRepository tagRepository;
   private final FilesStorageService storageService;
 
   @Autowired
-  public TopicService(TopicRepository topicRepository, FilesStorageService storageService) {
+  public TopicService(TopicRepository topicRepository, FilesStorageService storageService,
+      TagRepository tagRepository) {
     this.topicRepository = topicRepository;
     this.storageService = storageService;
+    this.tagRepository = tagRepository;
   }
 
   public List<Topic> getTopics() {
@@ -57,8 +64,21 @@ public class TopicService {
     return newTopic;
   }
 
-  public Topic modifyTopic(Topic topic) {
-    return topicRepository.save(topic);
+  public Topic modifyTopic(Integer id, Topic topic) {
+    Topic modifyTopic = topicRepository.getById(id);
+    if (topic.getText() != null) {
+      modifyTopic.setText(topic.getText());
+    }
+    if (topic.getTags() != null) {
+      Set<Tag> tagsList = new HashSet<>();
+      Set<Tag> tags = topic.getTags();
+      tags.forEach(tag -> tagsList.add(tagRepository.getById(tag.getId())));
+      modifyTopic.setTags(tagsList);
+    }
+    if (topic.getTitle() != null) {
+      modifyTopic.setTitle(topic.getTitle());
+    }
+    return topicRepository.save(modifyTopic);
   }
 
   public void modifyTag(Topic topic) {

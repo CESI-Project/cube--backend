@@ -103,7 +103,7 @@ public class TopicController {
   @CrossOrigin
   @PutMapping("/{id}")
   public ResponseEntity<?> modifyTopic(@Valid @PathVariable Integer id, @RequestBody Topic topic) {
-    topicService.modifyTopic(topic);
+    topicService.modifyTopic(id, topic);
     return ResponseEntity.ok(new MessageResponse("Topic modified successfully!"));
   }
 
