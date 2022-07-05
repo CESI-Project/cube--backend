@@ -1,5 +1,9 @@
 package com.svt.cube.service;
 
+import com.svt.cube.entity.AllTopicInfo;
+import com.svt.cube.entity.Comment;
+import com.svt.cube.entity.CommentAndSubComments;
+import com.svt.cube.entity.ResponseComment;
 import com.svt.cube.entity.Tag;
 import com.svt.cube.entity.Topic;
 import com.svt.cube.repository.TagRepository;
@@ -19,13 +23,18 @@ public class TopicService {
   private final TopicRepository topicRepository;
   private final TagRepository tagRepository;
   private final FilesStorageService storageService;
+  private final CommentService commentService;
+  private final ResponseCommentService responseCommentService;
 
   @Autowired
   public TopicService(TopicRepository topicRepository, FilesStorageService storageService,
-      TagRepository tagRepository) {
+      TagRepository tagRepository, CommentService commentService,
+      ResponseCommentService responseCommentService) {
     this.topicRepository = topicRepository;
     this.storageService = storageService;
     this.tagRepository = tagRepository;
+    this.commentService = commentService;
+    this.responseCommentService = responseCommentService;
   }
 
   public List<Topic> getTopics() {
@@ -40,8 +49,17 @@ public class TopicService {
     return topicRepository.findAll();
   }
 
-  public Topic getTopicById(Integer id) {
-    return topicRepository.findById(id).get();
+  public AllTopicInfo getTopicById(Integer id) {
+    Set<CommentAndSubComments> commentAndSubCommentsList = new HashSet<>();
+    List<Comment> comments = commentService.getComments(id);
+    // pour chaque commentaire, je crée l'object et récupère le comm et les reponses
+    comments.forEach(comment -> {
+      List<ResponseComment> listResponseComment = responseCommentService.getResponseComments(comment.getId());
+      CommentAndSubComments commentAndSubComments = new CommentAndSubComments(comment, listResponseComment);
+      commentAndSubCommentsList.add(commentAndSubComments);
+    });
+    AllTopicInfo topicInfo = new AllTopicInfo(topicRepository.findById(id).get(), commentAndSubCommentsList);
+    return topicInfo;
   }
 
   public void addPicturePath(Integer id, String namePicture) {

@@ -1,8 +1,13 @@
 package com.svt.cube.controller;
 
+import com.svt.cube.entity.AllTopicInfo;
+import com.svt.cube.entity.Comment;
+import com.svt.cube.entity.ResponseComment;
 import com.svt.cube.entity.Tag;
 import com.svt.cube.entity.Topic;
 import com.svt.cube.payload.response.MessageResponse;
+import com.svt.cube.repository.ResponseCommentRepository;
+import com.svt.cube.service.CommentService;
 import com.svt.cube.service.TopicService;
 import com.svt.cube.service.ViewService;
 import java.util.List;
@@ -26,7 +31,7 @@ public class TopicController {
   private final TopicService topicService;
 
   @Autowired
-  public TopicController(TopicService topicService, ViewService viewService) {
+  public TopicController(TopicService topicService) {
     this.topicService = topicService;
   }
 
@@ -64,7 +69,7 @@ public class TopicController {
 
   @CrossOrigin
   @GetMapping("/{id}")
-  public Topic getTopicById(@PathVariable Integer id) {
+  public AllTopicInfo getTopicById(@PathVariable Integer id) {
     return topicService.getTopicById(id);
   }
 
