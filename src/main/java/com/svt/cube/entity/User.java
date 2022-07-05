@@ -19,7 +19,7 @@ import javax.validation.constraints.NotBlank;
 public class User {
 
   @Id
-  @SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence", initialValue = 3, allocationSize = 1)
+  @SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence", initialValue = 4, allocationSize = 1)
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence")
   private Long id;
   private String userName;
