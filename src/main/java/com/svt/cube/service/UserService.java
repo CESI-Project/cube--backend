@@ -8,8 +8,10 @@ import com.svt.cube.repository.UserRepository;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
@@ -126,5 +128,10 @@ public class UserService {
       System.out.println("Error While writing CSV " + e);
       ;
     }
+  }
+
+  public Set<Integer> getUserTopicsViewId(Integer id) {
+    Set<Integer> listTopicsViewId = viewService.getUserTopicsViewId(id);
+    return listTopicsViewId;
   }
 }

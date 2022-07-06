@@ -1,5 +1,7 @@
 package com.svt.cube.repository;
 
+import java.util.Set;
+
 import com.svt.cube.entity.View;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,4 +18,6 @@ public interface ViewRepository extends JpaRepository<View, Integer> {
 
   @Query("SELECT COUNT(v) FROM View v WHERE v.userId = null")
   int countNotUsers();
+
+  Set<View> findByUserId(Integer userId);
 }

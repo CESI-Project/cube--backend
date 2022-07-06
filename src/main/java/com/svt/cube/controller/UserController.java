@@ -77,6 +77,12 @@ public class UserController {
   }
 
   @CrossOrigin
+  @GetMapping("/{id}/topicsView")
+  public Set<Integer> getUserTopicsViewId(@PathVariable Integer id) {
+    return userService.getUserTopicsViewId(id);
+  }
+
+  @CrossOrigin
   @GetMapping("/{id}/dashboard")
   public StatistiquesInformation getDashboardStat(@PathVariable Integer id) {
     return userService.getDashboardStat(id);

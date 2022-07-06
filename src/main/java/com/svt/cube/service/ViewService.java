@@ -1,11 +1,15 @@
 package com.svt.cube.service;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.svt.cube.entity.Topic;
 import com.svt.cube.entity.View;
 import com.svt.cube.repository.TopicRepository;
 import com.svt.cube.repository.ViewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistration;
 
 @Service
 public class ViewService {
@@ -50,5 +54,12 @@ public class ViewService {
 
   public Integer getTotalViewsNotUsers() {
     return (int) viewRepository.countNotUsers();
+  }
+
+  public Set<Integer> getUserTopicsViewId(Integer userId) {
+    Set<View> views = viewRepository.findByUserId(userId);
+    Set<Integer> viewsId = new HashSet<>();
+    views.forEach(view -> viewsId.add(view.getId()));
+    return viewsId;
   }
 }
