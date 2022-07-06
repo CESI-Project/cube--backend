@@ -115,12 +115,16 @@ public class TopicService {
     return topicRepository.save(topic);
   }
 
-  public Topic createTopicWithPhoto(Topic topic, MultipartFile file) {
+  public Topic createTopicWithImg(Topic topic, MultipartFile file) {
     Topic newTopic = topicRepository.save(topic);
-    String nameFile = "Topic_" + newTopic.getId().toString() + "_" + file.getOriginalFilename();
-    storageService.saveTopic(file, nameFile);
-    this.addPicturePath(newTopic.getId(), nameFile);
-    return newTopic;
+    if (file != null) {
+      String nameFile = "Topic_" + newTopic.getId().toString() + "_" + file.getOriginalFilename();
+      storageService.saveTopic(file, nameFile);
+      this.addPicturePath(newTopic.getId(), nameFile);
+    }
+    // à décommenter si tu veux le voir direct
+    // newTopic.setIsValidated(true);
+    return topicRepository.save(topic);
   }
 
   public Topic modifyTopic(Integer id, Topic topic) {

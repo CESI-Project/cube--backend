@@ -1,15 +1,10 @@
 package com.svt.cube.controller;
 
 import com.svt.cube.entity.AllTopicInfo;
-import com.svt.cube.entity.Comment;
-import com.svt.cube.entity.ResponseComment;
 import com.svt.cube.entity.Tag;
 import com.svt.cube.entity.Topic;
 import com.svt.cube.payload.response.MessageResponse;
-import com.svt.cube.repository.ResponseCommentRepository;
-import com.svt.cube.service.CommentService;
 import com.svt.cube.service.TopicService;
-import com.svt.cube.service.ViewService;
 import java.util.List;
 import java.util.Set;
 import javax.validation.Valid;
@@ -23,7 +18,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping(path = "api/v1/topic")
@@ -69,6 +67,14 @@ public class TopicController {
     return ResponseEntity.ok(new MessageResponse("Topic registered successfully!"));
   }
 
+  @CrossOrigin
+  @PostMapping("/withImg")
+  public ResponseEntity<?> createTopic(@Valid @RequestPart(value = "file") MultipartFile file,
+      @RequestPart Topic topic) {
+    topicService.createTopicWithImg(topic, file);
+    return ResponseEntity.ok(new MessageResponse("Topic registered successfully!"));
+  }
+
   // All for admin
   @CrossOrigin
   @GetMapping("/admin")
@@ -106,19 +112,6 @@ public class TopicController {
   public List<Topic> getTopicValidated() {
     return topicService.getTopicValidated();
   }
-
-  // @CrossOrigin
-  // @PostMapping
-  // public ResponseEntity<?> createTopic(@Valid @RequestBody Topic topic,
-  // @RequestParam("file") MultipartFile file) {
-  // if (file == null) {
-  // topicService.createTopic(topic);
-  // } else {
-  // topicService.createTopicWithPhoto(topic, file);
-  // }
-  // return ResponseEntity.ok(new MessageResponse("Topic registered
-  // successfully!"));
-  // }
 
   @CrossOrigin
   @PutMapping("/{id}")
