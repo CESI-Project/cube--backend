@@ -14,7 +14,6 @@ import javax.persistence.Table;
 @Entity
 @Table
 public class Topic {
-
   @Id
   @SequenceGenerator(name = "topic_sequence", sequenceName = "topic_sequence", initialValue = 7, allocationSize = 1)
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "topic_sequence")
@@ -24,12 +23,22 @@ public class Topic {
   private String picture;
   private Integer view;
   private Integer userId;
+  @Column(columnDefinition = "varchar(10) default 'Publiques'")
+  private String type;
   @Column(name = "is_validated", columnDefinition = "boolean default false")
   private Boolean isValidated = false;
-  @ManyToMany(cascade = {CascadeType.MERGE})
+  @ManyToMany(cascade = { CascadeType.MERGE })
   private Set<Tag> tags;
 
   public Topic() {
+  }
+
+  public Topic(String title, String text, String picture, Integer view, Integer userId) {
+    this.title = title;
+    this.text = text;
+    this.picture = picture;
+    this.view = view;
+    this.userId = userId;
   }
 
   public Topic(String title, String text, String picture, Integer view) {
@@ -87,6 +96,14 @@ public class Topic {
     this.userId = userId;
   }
 
+  public String getType() {
+    return type;
+  }
+
+  public void setType(String type) {
+    this.type = type;
+  }
+
   public Boolean getIsValidated() {
     return isValidated;
   }
@@ -106,11 +123,11 @@ public class Topic {
   @Override
   public String toString() {
     return "Topic{" +
-          "id=" + id +
-          ", title='" + title + '\'' +
-          ", text='" + text + '\'' +
-          ", picture='" + picture + '\'' +
-          ", view=" + view +
-          '}';
+        "id=" + id +
+        ", title='" + title + '\'' +
+        ", text='" + text + '\'' +
+        ", picture='" + picture + '\'' +
+        ", view=" + view +
+        '}';
   }
 }

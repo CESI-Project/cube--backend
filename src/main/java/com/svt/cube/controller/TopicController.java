@@ -37,6 +37,20 @@ public class TopicController {
   }
 
   @CrossOrigin
+  @GetMapping("/notConnected")
+  public List<Topic> getTopicsNotConnected() {
+    return topicService.getTopicsNotConnected();
+  }
+
+  // decommenter quand fait en front
+  // @CrossOrigin
+  // @GetMapping("user/{id}")
+  // public List<Topic> getTopics(@Valid @PathVariable Integer id) {
+  // return topicService.getTopics(id);
+  // }
+
+  // supp quand celle du dessus remise
+  @CrossOrigin
   @GetMapping
   public List<Topic> getTopics() {
     return topicService.getTopics();
@@ -46,6 +60,13 @@ public class TopicController {
   @GetMapping("/byTags")
   public List<Topic> getTopicsByTags(@RequestBody Set<Tag> tags) {
     return topicService.getTopicsByTags(tags);
+  }
+
+  @CrossOrigin
+  @PostMapping
+  public ResponseEntity<?> createTopic(@Valid @RequestBody Topic topic) {
+    topicService.createTopic(topic);
+    return ResponseEntity.ok(new MessageResponse("Topic registered successfully!"));
   }
 
   // All for admin
@@ -98,13 +119,6 @@ public class TopicController {
   // return ResponseEntity.ok(new MessageResponse("Topic registered
   // successfully!"));
   // }
-
-  @CrossOrigin
-  @PostMapping
-  public ResponseEntity<?> createTopic(@Valid @RequestBody Topic topic) {
-    topicService.createTopic(topic);
-    return ResponseEntity.ok(new MessageResponse("Topic registered successfully!"));
-  }
 
   @CrossOrigin
   @PutMapping("/{id}")

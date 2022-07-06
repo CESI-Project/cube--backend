@@ -1,22 +1,23 @@
 package com.svt.cube.service;
 
+import com.svt.cube.entity.SharedTopic;
+import com.svt.cube.entity.Tag;
+import com.svt.cube.entity.Topic;
+import com.svt.cube.repository.SharedTopicRepository;
+import com.svt.cube.repository.TopicRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import com.svt.cube.entity.AllTopicInfo;
 import com.svt.cube.entity.Comment;
 import com.svt.cube.entity.CommentAndSubComments;
 import com.svt.cube.entity.ResponseComment;
-import com.svt.cube.entity.Tag;
-import com.svt.cube.entity.Topic;
 import com.svt.cube.entity.TopicByCategories;
-import com.svt.cube.repository.TagRepository;
-import com.svt.cube.repository.TopicRepository;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
@@ -27,11 +28,13 @@ public class TopicService {
   private final FilesStorageService storageService;
   private final CommentService commentService;
   private final ResponseCommentService responseCommentService;
+  private final SharedTopicRepository sharedTopicRepository;
 
   @Autowired
   public TopicService(TopicRepository topicRepository, FilesStorageService storageService,
       TagService tagService, CommentService commentService,
-      ResponseCommentService responseCommentService) {
+      ResponseCommentService responseCommentService, SharedTopicRepository sharedTopicRepository) {
+    this.sharedTopicRepository = sharedTopicRepository;
     this.topicRepository = topicRepository;
     this.storageService = storageService;
     this.tagService = tagService;
@@ -39,9 +42,41 @@ public class TopicService {
     this.responseCommentService = responseCommentService;
   }
 
+  public List<Topic> getTopicsNotConnected() {
+    return topicRepository.findByType();
+  }
+
+  // supp quand la fonction du dessous remise
   public List<Topic> getTopics() {
     return topicRepository.findAll();
   }
+
+  // decommenter quand changer en front
+  // public List<Topic> getTopics(Integer userId) {
+  // List<SharedTopic> sharedTopicwithuser =
+  // sharedTopicRepository.findAllByUserId(userId);
+  // List<Integer> listTopicId = new ArrayList<Integer>();
+  // List<Topic> topicsPartaged = new ArrayList<Topic>();
+
+  // for (SharedTopic record : sharedTopicwithuser) {
+  // listTopicId.add(record.getTopicId());
+  // }
+
+  // for (Integer record : listTopicId) {
+  // Topic topic = topicRepository.findById(record).get();
+  // topicsPartaged.add(topic);
+  // }
+  // List<Topic> topicsPrivate = topicRepository.findByTypeAndUserId(userId);
+  // List<Topic> topicsPublic = topicRepository.findByType();
+
+  // List<Topic> topicsAll = new ArrayList<Topic>(topicsPartaged);
+  // topicsAll.addAll(topicsPrivate);
+  // topicsAll.addAll(topicsPublic);
+  // Set<Topic> setWithUniqueValues = new HashSet<>(topicsAll);
+  // List<Topic> topics = new ArrayList<>(setWithUniqueValues);
+
+  // return topics;
+  // }
 
   public List<Topic> getTopicsByTags(Set<Tag> tags) {
     return topicRepository.findAllByTagsIn(tags);
