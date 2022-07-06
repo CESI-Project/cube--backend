@@ -137,8 +137,15 @@ public class TopicService {
     return topicRepository.findAllByUserId(userId);
   }
 
-  public void deleteTag(Integer id) {
+  public void deleteTagAdmin(Integer id) {
     topicRepository.deleteById(id);
+  }
+
+  public void deleteTag(Integer id, Integer userId) {
+    Topic topic = topicRepository.findById(id).get();
+    if (topic.getUserId() == userId) {
+      topicRepository.deleteById(id);
+    }
   }
 
   public Integer getAverageCommentsCount() {

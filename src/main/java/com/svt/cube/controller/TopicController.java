@@ -128,9 +128,16 @@ public class TopicController {
   }
 
   @CrossOrigin
-  @DeleteMapping("/{id}")
+  @DeleteMapping("/admin/{id}")
   // @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
-  public void deleteTag(@PathVariable Integer id) {
-    topicService.deleteTag(id);
+  public void deleteTagAdmin(@PathVariable Integer id) {
+    topicService.deleteTagAdmin(id);
+  }
+
+  @CrossOrigin
+  @DeleteMapping("/{id}")
+  // @PreAuthorize("hasRole('ROLE_USER')")
+  public void deleteTag(@PathVariable Integer id, @RequestBody Integer userId) {
+    topicService.deleteTag(id, userId);
   }
 }
