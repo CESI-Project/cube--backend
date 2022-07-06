@@ -11,26 +11,27 @@ import org.springframework.data.annotation.CreatedDate;
 
 @Entity
 @Table
-public class Comment {
+public class ResponseComment {
 
   @Id
-  @SequenceGenerator(name = "comment_sequence", sequenceName = "comment_sequence", initialValue = 3, allocationSize = 1)
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "comment_sequence")
+  @SequenceGenerator(name = "responsecomment_sequence", sequenceName = "responsecomment_sequence", initialValue = 3,
+        allocationSize = 1)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "responsecomment_sequence")
   private Integer id;
   private String text;
   @CreatedDate
   private Timestamp createdAt;
-  private Integer topicId;
+  private Integer commentId;
 
   private Integer userId;
 
-  public Comment() {
+  public ResponseComment() {
   }
 
-  public Comment(String text, Timestamp createdAt, Integer topicId, Integer userId) {
+  public ResponseComment(String text, Timestamp createdAt, Integer commentId, Integer userId) {
     this.text = text;
     this.createdAt = createdAt;
-    this.topicId = topicId;
+    this.commentId = commentId;
     this.userId = userId;
   }
 
@@ -58,12 +59,12 @@ public class Comment {
     this.createdAt = createdAt;
   }
 
-  public Integer getTopicId() {
-    return topicId;
+  public Integer getCommentId() {
+    return commentId;
   }
 
-  public void setTopicId(Integer topicId) {
-    this.topicId = topicId;
+  public void setCommentId(Integer commentId) {
+    this.commentId = commentId;
   }
 
   public Integer getUserId() {
@@ -80,7 +81,7 @@ public class Comment {
           "id=" + id +
           ", text='" + text + '\'' +
           ", createdAt=" + createdAt +
-          ", topicId=" + topicId +
+          ", commentId=" + commentId +
           ", userId=" + userId +
           '}';
   }

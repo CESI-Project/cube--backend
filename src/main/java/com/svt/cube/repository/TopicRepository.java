@@ -12,15 +12,25 @@ import java.util.Set;
 
 @Repository
 public interface TopicRepository extends JpaRepository<Topic, Integer> {
-    @Query("SELECT t FROM Topic t WHERE t.type='Publiques'")
-    List<Topic> findByType();
+  @Query("SELECT t FROM Topic t WHERE t.type='Publiques'")
+  List<Topic> findByType();
 
-    @Query("SELECT t FROM Topic t WHERE t.type='Privées' AND t.userId = :userId")
-    List<Topic> findByTypeAndUserId(@Param("userId") Integer userId);
+  @Query("SELECT t FROM Topic t WHERE t.type='Privées' AND t.userId = :userId")
+  List<Topic> findByTypeAndUserId(@Param("userId") Integer userId);
 
-    // @Query("SELECT t FROM Topic t WHERE t.type='Partagées' AND :userId IN
-    // t.sharedPersonId")
-    // List<Topic> findByTypeAndSharedPersonId(@Param("userId") Integer userId);
+  // @Query("SELECT t FROM Topic t WHERE t.type='Partagées' AND :userId IN
+  // t.sharedPersonId")
+  // List<Topic> findByTypeAndSharedPersonId(@Param("userId") Integer userId);
 
-    List<Topic> findAllByTagsIn(Set<Tag> tags);
+  List<Topic> findAllByTagsIn(Set<Tag> tags);
+
+  @Query("SELECT t from Topic t where t.isValidated = true")
+  List<Topic> findAllValidated();
+
+  @Query("SELECT t from Topic t where t.isValidated = false")
+  List<Topic> findAllNotValidated();
+
+  List<Topic> findAllByUserId(Integer userId);
+
+  Integer countByTagsIn(Set<Tag> tags);
 }

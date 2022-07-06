@@ -1,119 +1,133 @@
 package com.svt.cube.entity;
 
 import java.util.Set;
-
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 @Entity
 @Table
 public class Topic {
-    @Id
-    @SequenceGenerator(name = "topic_sequence", sequenceName = "topic_sequence", initialValue = 3, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "topic_sequence")
-    private Integer id;
-    private String title;
-    private String text;
-    private String picture;
-    private Integer view;
-    private Integer userId;
-    @Column(columnDefinition = "varchar(10) default 'Publiques'")
-    private String type;
-    @Column(name = "is_validated", columnDefinition = "boolean default false")
-    private Boolean isValidated = false;
-    @ManyToMany(cascade = { CascadeType.MERGE })
-    private Set<Tag> tags;
+  @Id
+  @SequenceGenerator(name = "topic_sequence", sequenceName = "topic_sequence", initialValue = 7, allocationSize = 1)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "topic_sequence")
+  private Integer id;
+  private String title;
+  private String text;
+  private String picture;
+  private Integer view;
+  private Integer userId;
+  @Column(columnDefinition = "varchar(10) default 'Publiques'")
+  private String type;
+  @Column(name = "is_validated", columnDefinition = "boolean default false")
+  private Boolean isValidated = false;
+  @ManyToMany(cascade = { CascadeType.MERGE })
+  private Set<Tag> tags;
 
-    public Topic() {
-    }
+  public Topic() {
+  }
 
-    public Topic(String title, String text, String picture, Integer view, Integer userId) {
-        this.title = title;
-        this.text = text;
-        this.picture = picture;
-        this.view = view;
-        this.userId = userId;
-    }
+  public Topic(String title, String text, String picture, Integer view, Integer userId) {
+    this.title = title;
+    this.text = text;
+    this.picture = picture;
+    this.view = view;
+    this.userId = userId;
+  }
 
-    public Integer getId() {
-        return id;
-    }
+  public Topic(String title, String text, String picture, Integer view) {
+    this.title = title;
+    this.text = text;
+    this.picture = picture;
+    this.view = view;
+  }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+  public Integer getId() {
+    return id;
+  }
 
-    public String getTitle() {
-        return title;
-    }
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+  public String getTitle() {
+    return title;
+  }
 
-    public String getText() {
-        return text;
-    }
+  public void setTitle(String title) {
+    this.title = title;
+  }
 
-    public void setText(String text) {
-        this.text = text;
-    }
+  public String getText() {
+    return text;
+  }
 
-    public String getPicture() {
-        return picture;
-    }
+  public void setText(String text) {
+    this.text = text;
+  }
 
-    public void setPicture(String picture) {
-        this.picture = picture;
-    }
+  public String getPicture() {
+    return picture;
+  }
 
-    public String getType() {
-        return type;
-    }
+  public void setPicture(String picture) {
+    this.picture = picture;
+  }
 
-    public void setType(String type) {
-        this.type = type;
-    }
+  public Integer getView() {
+    return view;
+  }
 
-    public Integer getView() {
-        return view;
-    }
+  public void setView(Integer view) {
+    this.view = view;
+  }
 
-    public Integer getUserId() {
-        return userId;
-    }
+  public Integer getUserId() {
+    return userId;
+  }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
+  public void setUserId(Integer userId) {
+    this.userId = userId;
+  }
 
-    public void setView(Integer view) {
-        this.view = view;
-    }
+  public String getType() {
+    return type;
+  }
 
-    public Boolean getIsValidated() {
-        return isValidated;
-    }
+  public void setType(String type) {
+    this.type = type;
+  }
 
-    public void setIsValidated(Boolean isValidated) {
-        this.isValidated = isValidated;
-    }
+  public Boolean getIsValidated() {
+    return isValidated;
+  }
 
-    public Set<Tag> getTags() {
-        return tags;
-    }
+  public void setIsValidated(Boolean isValidated) {
+    this.isValidated = isValidated;
+  }
 
-    public void setTags(Set<Tag> tags) {
-        this.tags = tags;
-    }
+  public Set<Tag> getTags() {
+    return tags;
+  }
 
-    @Override
-    public String toString() {
-        return "Topic{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", text='" + text + '\'' +
-                ", picture='" + picture + '\'' +
-                ", view=" + view +
-                '}';
-    }
+  public void setTags(Set<Tag> tags) {
+    this.tags = tags;
+  }
+
+  @Override
+  public String toString() {
+    return "Topic{" +
+        "id=" + id +
+        ", title='" + title + '\'' +
+        ", text='" + text + '\'' +
+        ", picture='" + picture + '\'' +
+        ", view=" + view +
+        '}';
+  }
 }

@@ -1,36 +1,35 @@
 package com.svt.cube.service;
 
-import java.util.List;
-
 import com.svt.cube.entity.Favorite;
 import com.svt.cube.repository.FavoriteRepository;
-
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class FavoriteService {
-    private final FavoriteRepository favoriteRepository;
 
-    @Autowired
-    public FavoriteService(FavoriteRepository favoriteRepository) {
-        this.favoriteRepository = favoriteRepository;
-    }
+  private final FavoriteRepository favoriteRepository;
 
-    public List<Favorite> getAllFavoritesUser(Long userId) {
-        return favoriteRepository.findAllByUserId(userId);
-    }
+  @Autowired
+  public FavoriteService(FavoriteRepository favoriteRepository) {
+    this.favoriteRepository = favoriteRepository;
+  }
 
-    public Favorite createFavorite(Favorite favorite) {
-        return favoriteRepository.save(favorite);
-    }
+  public List<Favorite> getAllFavoritesUser(Long userId) {
+    return favoriteRepository.findAllByUserId(userId);
+  }
 
-    public void deleteFavorite(Integer favoriteId) {
-        favoriteRepository.deleteById(favoriteId);
-    }
+  public Favorite createFavorite(Favorite favorite) {
+    return favoriteRepository.save(favorite);
+  }
 
-    public Favorite getIsFavorite(Favorite favorite) {
-        return favoriteRepository.findByTopicIdAndUserId(favorite.gettopicId(), favorite.getuserId());
-    }
+  public void deleteFavorite(Integer favoriteId) {
+    favoriteRepository.deleteById(favoriteId);
+  }
+
+  public Favorite getIsFavorite(Favorite favorite) {
+    return favoriteRepository.findByTopicIdAndUserId(favorite.gettopicId(), favorite.getuserId());
+  }
 
 }

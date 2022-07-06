@@ -5,7 +5,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-public class SignupRequest {
+public class SignupSpecialRequest {
 
   @NotBlank
   @Size(min = 3, max = 20)
@@ -15,8 +15,8 @@ public class SignupRequest {
   @Size(max = 50)
   @Email
   private String email;
-  private Integer age;
 
+  private Integer age;
   private Set<String> role;
 
   @NotBlank

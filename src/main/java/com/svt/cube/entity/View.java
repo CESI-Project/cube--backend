@@ -1,29 +1,30 @@
 package com.svt.cube.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 
 @Entity
-@Table
-public class Favorite {
+public class View {
 
   @Id
   @SequenceGenerator(name = "favorite_sequence", sequenceName = "favorite_sequence", allocationSize = 1)
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "favorite_sequence")
   private Integer id;
-  private Long userId;
+  @Column(nullable = true, length = 3)
   private Integer topicId;
+  @Column(length = 3)
+  private Integer userId;
 
-  public Favorite() {
+  public View() {
   }
 
-  public Favorite(Long userId, Integer topicId) {
-    this.userId = userId;
+  public View(Integer topicId, Integer userId) {
     this.topicId = topicId;
+    this.userId = userId;
   }
 
   public Integer getId() {
@@ -34,19 +35,19 @@ public class Favorite {
     this.id = id;
   }
 
-  public Long getuserId() {
-    return userId;
-  }
-
-  public void setuserId(Long userId) {
-    this.userId = userId;
-  }
-
-  public Integer gettopicId() {
+  public Integer getTopicId() {
     return topicId;
   }
 
-  public void settopicId(Integer topicId) {
+  public void setTopicId(Integer topicId) {
     this.topicId = topicId;
+  }
+
+  public Integer getUserId() {
+    return userId;
+  }
+
+  public void setUserId(Integer userId) {
+    this.userId = userId;
   }
 }
