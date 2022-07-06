@@ -24,6 +24,10 @@ public class TagService {
     return tagRepository.findAllByFamilyTagId(familyTagId);
   }
 
+  public Integer getTotalTopicsCount() {
+    return (int) tagRepository.count();
+  }
+
   public Tag createTag(Tag tag) {
     return tagRepository.save(tag);
   }
@@ -34,5 +38,9 @@ public class TagService {
 
   public void modifyTag(Tag tag) {
     tagRepository.save(tag);
+  }
+
+  public Tag getById(Integer id) {
+    return tagRepository.getById(id);
   }
 }

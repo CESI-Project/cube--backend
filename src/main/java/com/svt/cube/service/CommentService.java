@@ -4,7 +4,9 @@ import com.svt.cube.entity.Comment;
 import com.svt.cube.entity.User;
 import com.svt.cube.repository.CommentRepository;
 import com.svt.cube.repository.UserRepository;
+
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,10 @@ public class CommentService {
 
   public List<Comment> getComments(Integer id) {
     return commentRepository.findByTopicId(id);
+  }
+
+  public Integer getCommentsCount() {
+    return (int) commentRepository.count();
   }
 
   public void deleteById(Integer id, Long userId) {

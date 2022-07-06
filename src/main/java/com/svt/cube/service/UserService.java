@@ -1,5 +1,7 @@
 package com.svt.cube.service;
 
+import com.svt.cube.entity.Topic;
+import com.svt.cube.entity.TopicByCategories;
 import com.svt.cube.entity.User;
 import com.svt.cube.repository.UserRepository;
 import java.util.List;
@@ -11,10 +13,21 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
   private final UserRepository userRepository;
+  private final TopicService topicService;
+  private final ViewService viewService;
+  private final TagService tagService;
+  private final CommentService commentService;
+  private final ResponseCommentService responseCommentService;
 
   @Autowired
-  public UserService(UserRepository userRepository) {
+  public UserService(UserRepository userRepository, TopicService topicService, ViewService viewService,
+      TagService tagService, CommentService commentService, ResponseCommentService responseCommentService) {
     this.userRepository = userRepository;
+    this.topicService = topicService;
+    this.viewService = viewService;
+    this.tagService = tagService;
+    this.commentService = commentService;
+    this.responseCommentService = responseCommentService;
   }
 
   public List<User> getUsers(Long userId) {
@@ -57,5 +70,21 @@ public class UserService {
 
   public Integer getTotalUsers() {
     return (int) userRepository.count();
+  }
+
+  public Optional<User> getDashboardStat(Integer id) {
+    List<Topic> topics = topicService.getMyTopics(id);
+    Integer myTotolViews = viewService.getMyCountView(id);
+    Integer totalUsers = getTotalUsers();
+    Integer totalTopics = topicService.getTotalTopics();
+    Integer totalTags = tagService.getTotalTopicsCount();
+    Integer totalTopicViews = viewService.getTotalViews();
+    Integer totalComments = commentService.getCommentsCount();
+    Integer totalResponseComments = responseCommentService.getResponseCommentsCount();
+    Integer averageCommentsByTopic = topicService.getAverageCommentsCount();
+    Integer averageResponseCommentsByTopic = topicService.getAverageResponseCommentsCount();
+    List<TopicByCategories> TotalTopicsByCategories = topicService.getTopicByCategeries();
+
+    return null;
   }
 }

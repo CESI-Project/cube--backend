@@ -16,6 +16,10 @@ public class ResponseCommentService {
     this.responseCommentRepository = responseCommentRepository;
   }
 
+  public Integer getResponseCommentsCount() {
+    return (int) responseCommentRepository.count();
+  }
+
   public List<ResponseComment> getResponseComments(Integer commentId) {
     return responseCommentRepository.findByCommentId(commentId);
   }

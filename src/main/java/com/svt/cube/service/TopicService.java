@@ -6,9 +6,11 @@ import com.svt.cube.entity.CommentAndSubComments;
 import com.svt.cube.entity.ResponseComment;
 import com.svt.cube.entity.Tag;
 import com.svt.cube.entity.Topic;
+import com.svt.cube.entity.TopicByCategories;
 import com.svt.cube.repository.TagRepository;
 import com.svt.cube.repository.TopicRepository;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -21,18 +23,18 @@ import org.springframework.web.multipart.MultipartFile;
 public class TopicService {
 
   private final TopicRepository topicRepository;
-  private final TagRepository tagRepository;
+  private final TagService tagService;
   private final FilesStorageService storageService;
   private final CommentService commentService;
   private final ResponseCommentService responseCommentService;
 
   @Autowired
   public TopicService(TopicRepository topicRepository, FilesStorageService storageService,
-      TagRepository tagRepository, CommentService commentService,
+      TagService tagService, CommentService commentService,
       ResponseCommentService responseCommentService) {
     this.topicRepository = topicRepository;
     this.storageService = storageService;
-    this.tagRepository = tagRepository;
+    this.tagService = tagService;
     this.commentService = commentService;
     this.responseCommentService = responseCommentService;
   }
@@ -43,6 +45,10 @@ public class TopicService {
 
   public List<Topic> getTopicsByTags(Set<Tag> tags) {
     return topicRepository.findAllByTagsIn(tags);
+  }
+
+  public Integer getTopicsByTagsCount(Set<Tag> tags) {
+    return topicRepository.countByTagsIn(tags);
   }
 
   public List<Topic> getAllTopics() {
@@ -90,7 +96,7 @@ public class TopicService {
     if (topic.getTags() != null) {
       Set<Tag> tagsList = new HashSet<>();
       Set<Tag> tags = topic.getTags();
-      tags.forEach(tag -> tagsList.add(tagRepository.getById(tag.getId())));
+      tags.forEach(tag -> tagsList.add(tagService.getById(tag.getId())));
       modifyTopic.setTags(tagsList);
     }
     if (topic.getTitle() != null) {
@@ -133,5 +139,29 @@ public class TopicService {
 
   public void deleteTag(Integer id) {
     topicRepository.deleteById(id);
+  }
+
+  public Integer getAverageCommentsCount() {
+    Integer topicsCount = getTotalTopics();
+    return topicsCount / commentService.getCommentsCount();
+  }
+
+  public Integer getAverageResponseCommentsCount() {
+    Integer topicsCount = getTotalTopics();
+    return topicsCount / responseCommentService.getResponseCommentsCount();
+  }
+
+  public List<TopicByCategories> getTopicByCategeries() {
+    List<TopicByCategories> topicsByCategories = new ArrayList<>();
+    List<Tag> allTags = tagService.getAllTags();
+
+    allTags.forEach(tag -> {
+      String nameTag = tag.getNameEn() + "/" + tag.getNameFr();
+      Set<Tag> tagSet = new HashSet<>();
+      tagSet.add(tag);
+      topicsByCategories.add(new TopicByCategories(getTopicsByTagsCount(tagSet), nameTag));
+    });
+
+    return topicsByCategories;
   }
 }

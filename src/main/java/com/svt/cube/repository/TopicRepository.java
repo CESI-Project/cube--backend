@@ -20,4 +20,6 @@ public interface TopicRepository extends JpaRepository<Topic, Integer> {
   List<Topic> findAllNotValidated();
 
   List<Topic> findAllByUserId(Integer userId);
+
+  Integer countByTagsIn(Set<Tag> tags);
 }
