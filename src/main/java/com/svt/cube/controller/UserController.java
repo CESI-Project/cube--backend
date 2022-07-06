@@ -2,6 +2,7 @@ package com.svt.cube.controller;
 
 import com.svt.cube.entity.ERole;
 import com.svt.cube.entity.Role;
+import com.svt.cube.entity.StatistiquesInformation;
 import com.svt.cube.entity.User;
 import com.svt.cube.payload.request.LoginRequest;
 import com.svt.cube.payload.request.SignupRequest;
@@ -73,7 +74,7 @@ public class UserController {
 
   @CrossOrigin
   @GetMapping("/{id}/dashboard")
-  public Optional<User> getDashboardStat(@PathVariable Integer id) {
+  public StatistiquesInformation getDashboardStat(@PathVariable Integer id) {
     return userService.getDashboardStat(id);
   }
 
