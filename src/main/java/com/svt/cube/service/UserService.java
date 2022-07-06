@@ -1,5 +1,6 @@
 package com.svt.cube.service;
 
+import com.svt.cube.entity.StatistiquesInformation;
 import com.svt.cube.entity.Topic;
 import com.svt.cube.entity.TopicByCategories;
 import com.svt.cube.entity.User;
@@ -72,9 +73,9 @@ public class UserService {
     return (int) userRepository.count();
   }
 
-  public Optional<User> getDashboardStat(Integer id) {
+  public StatistiquesInformation getDashboardStat(Integer id) {
     List<Topic> topics = topicService.getMyTopics(id);
-    Integer myTotolViews = viewService.getMyCountView(id);
+    Integer myTotalViews = viewService.getMyCountView(id);
     Integer totalUsers = getTotalUsers();
     Integer totalTopics = topicService.getTotalTopics();
     Integer totalTags = tagService.getTotalTopicsCount();
@@ -84,7 +85,10 @@ public class UserService {
     Integer averageCommentsByTopic = topicService.getAverageCommentsCount();
     Integer averageResponseCommentsByTopic = topicService.getAverageResponseCommentsCount();
     List<TopicByCategories> TotalTopicsByCategories = topicService.getTopicByCategeries();
+    StatistiquesInformation statistiquesInformation = new StatistiquesInformation(topics, myTotalViews, totalUsers,
+        totalTopics, totalTags, totalTopicViews, totalComments, totalResponseComments, averageCommentsByTopic,
+        averageResponseCommentsByTopic, TotalTopicsByCategories);
 
-    return null;
+    return statistiquesInformation;
   }
 }
