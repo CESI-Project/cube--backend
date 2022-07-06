@@ -130,53 +130,6 @@ public class UserController {
             Role superAdminRole = roleRepository.findByName(ERole.ROLE_SUPERADMIN)
                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
             roles.add(superAdminRole);
-          case "admin":
-            Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
-                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            roles.add(adminRole);
-            break;
-          case "mode":
-            Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
-                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            roles.add(modRole);
-            break;
-          default:
-            Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            roles.add(userRole);
-        }
-      });
-    }
-    user.setRoles(roles);
-    userRepository.save(user);
-    return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
-  }
-
-  @CrossOrigin
-  @PostMapping("auth/admin/sign-up")
-  public ResponseEntity<?> registerSpecialUser(@Valid @RequestBody SignupSpecialRequest signUpSpecialRequest) {
-    if (userRepository.existsByUserName(signUpSpecialRequest.getUsername())) {
-      return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));
-    }
-    if (userRepository.existsByEmail(signUpSpecialRequest.getEmail())) {
-      return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
-    }
-    // Create new user's special account
-    User user = new User(signUpSpecialRequest.getUsername(), signUpSpecialRequest.getEmail(),
-        encoder.encode(signUpSpecialRequest.getPassword()), signUpSpecialRequest.getAge());
-    Set<String> strRoles = signUpSpecialRequest.getRole();
-    Set<Role> roles = new HashSet<>();
-    if (strRoles == null) {
-      Role userRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
-          .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-      roles.add(userRole);
-    } else {
-      strRoles.forEach(role -> {
-        switch (role) {
-          case "superAdmin":
-            Role superAdminRole = roleRepository.findByName(ERole.ROLE_SUPERADMIN)
-                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            roles.add(superAdminRole);
             break;
           case "admin":
             Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
