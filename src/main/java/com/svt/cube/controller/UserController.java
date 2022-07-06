@@ -14,11 +14,15 @@ import com.svt.cube.repository.UserRepository;
 import com.svt.cube.security.jwt.JwtUtils;
 import com.svt.cube.security.services.UserDetailsImpl;
 import com.svt.cube.service.UserService;
+
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -180,5 +184,13 @@ public class UserController {
   public ResponseEntity<?> desactivatedProfile(@Valid @PathVariable Long id) {
     userService.desactivatedProfile(id);
     return ResponseEntity.ok(new MessageResponse("Profil User desactivated succesfully updated"));
+  }
+
+  @CrossOrigin
+  @GetMapping("/{id}/dashboard/export")
+  public void getAllEmployeesInCsv(@PathVariable Integer id, HttpServletResponse servletResponse) throws IOException {
+    servletResponse.setContentType("text/csv");
+    servletResponse.addHeader("Content-Disposition", "attachment; filename=\"statistics.csv\"");
+    userService.writeEmployeesToCsv(id, servletResponse.getWriter());
   }
 }

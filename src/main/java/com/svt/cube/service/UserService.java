@@ -5,8 +5,14 @@ import com.svt.cube.entity.Topic;
 import com.svt.cube.entity.TopicByCategories;
 import com.svt.cube.entity.User;
 import com.svt.cube.repository.UserRepository;
+
+import java.io.IOException;
+import java.io.Writer;
 import java.util.List;
 import java.util.Optional;
+
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -90,7 +96,35 @@ public class UserService {
         totalTopics, totalTags, totalTopicViews, totalComments, totalResponseComments, averageCommentsByTopic,
         averageResponseCommentsByTopic, totalTopicsByCategories);
 
-    System.out.println("voila mon object ; " + statistiquesInformation);
     return statistiquesInformation;
+  }
+
+  public void writeEmployeesToCsv(Integer userId, Writer writer) {
+    StatistiquesInformation statistiquesInformation = getDashboardStat(userId);
+    try (CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT)) {
+      csvPrinter.printRecord("Statistics");
+      csvPrinter.printRecord("Total users", "Total topics", "Total tags", "Total topic views", "Total comments",
+          "Total subcomments", "Average comments/topic", "Average subcomments/topic");
+      csvPrinter.printRecord(statistiquesInformation.getTotalUsers(), statistiquesInformation.getTotalTopics(),
+          statistiquesInformation.getTotalTags(),
+          statistiquesInformation.getTotalTopicViews(), statistiquesInformation.getTotalComments(),
+          statistiquesInformation.getTotalResponseComments(),
+          statistiquesInformation.getAverageCommentsByTopic(),
+          statistiquesInformation.getAverageResponseCommentsByTopic());
+      csvPrinter.println();
+      csvPrinter.println();
+      csvPrinter.printRecord("Tag", "Topic number");
+      statistiquesInformation.getTotalTopicsByCategories().forEach(tag -> {
+        try {
+          csvPrinter.printRecord(tag.getTagsName(), tag.getTopicsCount());
+        } catch (IOException e) {
+          System.out.println("Error While writing CSV " + e);
+        }
+
+      });
+    } catch (IOException e) {
+      System.out.println("Error While writing CSV " + e);
+      ;
+    }
   }
 }
