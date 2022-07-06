@@ -185,12 +185,12 @@ public class TopicService {
 
   public Integer getAverageCommentsCount() {
     Integer topicsCount = getTotalTopics();
-    return topicsCount / commentService.getCommentsCount();
+    return commentService.getCommentsCount() / topicsCount;
   }
 
   public Integer getAverageResponseCommentsCount() {
     Integer topicsCount = getTotalTopics();
-    return topicsCount / responseCommentService.getResponseCommentsCount();
+    return responseCommentService.getResponseCommentsCount() / topicsCount;
   }
 
   public List<TopicByCategories> getTopicByCategeries() {
