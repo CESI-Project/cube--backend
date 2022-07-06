@@ -84,11 +84,13 @@ public class UserService {
     Integer totalResponseComments = responseCommentService.getResponseCommentsCount();
     Integer averageCommentsByTopic = topicService.getAverageCommentsCount();
     Integer averageResponseCommentsByTopic = topicService.getAverageResponseCommentsCount();
-    List<TopicByCategories> TotalTopicsByCategories = topicService.getTopicByCategeries();
+    List<TopicByCategories> totalTopicsByCategories = topicService.getTopicByCategeries();
+
     StatistiquesInformation statistiquesInformation = new StatistiquesInformation(topics, myTotalViews, totalUsers,
         totalTopics, totalTags, totalTopicViews, totalComments, totalResponseComments, averageCommentsByTopic,
-        averageResponseCommentsByTopic, TotalTopicsByCategories);
+        averageResponseCommentsByTopic, totalTopicsByCategories);
 
+    System.out.println("voila mon object ; " + statistiquesInformation);
     return statistiquesInformation;
   }
 }
