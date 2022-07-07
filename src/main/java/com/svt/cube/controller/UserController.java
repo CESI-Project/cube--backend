@@ -14,6 +14,7 @@ import com.svt.cube.repository.UserRepository;
 import com.svt.cube.security.jwt.JwtUtils;
 import com.svt.cube.security.services.UserDetailsImpl;
 import com.svt.cube.service.UserService;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -199,4 +200,12 @@ public class UserController {
     servletResponse.addHeader("Content-Disposition", "attachment; filename=\"statistics.csv\"");
     userService.writeEmployeesToCsv(id, servletResponse.getWriter());
   }
+
+  @CrossOrigin
+  @DeleteMapping("admin/{id}")
+  // @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_SUPERADMIN')")
+  public void deleteUser(@PathVariable Long id) {
+    userRepository.deleteById(id);
+  }
+
 }

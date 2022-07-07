@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,7 +25,7 @@ public class ResponseCommentController {
   private final ResponseCommentRepository responseCommentRepository;
 
   public ResponseCommentController(ResponseCommentService responseCommentService,
-        ResponseCommentRepository responseCommentRepository) {
+      ResponseCommentRepository responseCommentRepository) {
     this.responseCommentService = responseCommentService;
     this.responseCommentRepository = responseCommentRepository;
   }
@@ -40,6 +41,14 @@ public class ResponseCommentController {
   public ResponseEntity<?> createResponseComment(@RequestBody ResponseComment Responsecomment) {
     responseCommentRepository.save(Responsecomment);
     return ResponseEntity.ok(new MessageResponse("Response comment registered successfully!"));
+  }
+
+  @CrossOrigin
+  @PutMapping("/{id}")
+  public ResponseEntity<?> modifyResponseComment(@PathVariable Integer id,
+      @RequestBody ResponseComment Responsecomment) {
+    responseCommentRepository.save(Responsecomment);
+    return ResponseEntity.ok(new MessageResponse("Response comment modify successfully!"));
   }
 
   @CrossOrigin
